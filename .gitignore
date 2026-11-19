@@ -1,0 +1,37 @@
+# Secrets: never commit. Private material is kept outside this folder.
+HF Token.txt
+Nano Banana 2 Key.txt
+*Token*.txt
+*Key*.txt
+*.env
+*secret*
+*credential*
+
+# Tool caches: pytest and ruff write to .cache/ (pyproject.toml)
+.cache/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+
+# Generated local outputs (artifacts live on the Databricks volume, not in git)
+smoke_out/
+*_out/
+pa_scratch/
+_dl/
+/_*.json
+/_*.png
+/_testdout.txt
+
+# Paper: LaTeX by-products, unpacked downloads, the arXiv upload archive
+paper/__MACOSX/
+paper/preview/
+paper/*.zip
+paper/arxiv/*.zip
+paper/**/*.aux
+paper/**/*.log
+paper/**/*.out
+paper/**/*.blg
+paper/**/*.synctex.gz
+paper/**/*.fdb_latexmk
+paper/**/*.fls

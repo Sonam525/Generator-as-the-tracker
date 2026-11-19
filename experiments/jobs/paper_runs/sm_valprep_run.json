@@ -1,0 +1,77 @@
+{
+ "run_name": "sportsmot-valclips-and-windows",
+ "tasks": [
+  {
+   "task_key": "valclips",
+   "new_cluster": {
+    "spark_version": "17.3.x-cpu-ml-scala2.13",
+    "node_type_id": "Standard_D8ds_v5",
+    "driver_node_type_id": "Standard_D8ds_v5",
+    "num_workers": 0,
+    "spark_conf": {
+     "spark.databricks.cluster.profile": "singleNode",
+     "spark.master": "local[*]"
+    },
+    "custom_tags": {
+     "ResourceClass": "SingleNode"
+    },
+    "data_security_mode": "SINGLE_USER",
+    "single_user_name": "<user>",
+    "azure_attributes": {
+     "availability": "ON_DEMAND_AZURE",
+     "first_on_demand": 1,
+     "spot_bid_max_price": -1
+    },
+    "enable_elastic_disk": true
+   },
+   "notebook_task": {
+    "notebook_path": "/Users/<user>/Generative Tracker/scripts/ltx_make_dataset",
+    "base_parameters": {
+     "dataset": "sportsmot",
+     "split": "val",
+     "vids": "v_00HRwkvvjtQ_c001,v_00HRwkvvjtQ_c003,v_00HRwkvvjtQ_c005,v_2QhNRucNC7E_c017,v_G-vNjfx1GGc_c004,v_G-vNjfx1GGc_c008,v_0kUtTtmLaJA_c004,v_0kUtTtmLaJA_c005",
+     "out_sub": "sportsmot_phase2_val",
+     "max_per_seq": "1",
+     "max_clips": "0"
+    }
+   },
+   "timeout_seconds": 7200
+  },
+  {
+   "task_key": "windows",
+   "new_cluster": {
+    "spark_version": "17.3.x-cpu-ml-scala2.13",
+    "node_type_id": "Standard_D8ds_v5",
+    "driver_node_type_id": "Standard_D8ds_v5",
+    "num_workers": 0,
+    "spark_conf": {
+     "spark.databricks.cluster.profile": "singleNode",
+     "spark.master": "local[*]"
+    },
+    "custom_tags": {
+     "ResourceClass": "SingleNode"
+    },
+    "data_security_mode": "SINGLE_USER",
+    "single_user_name": "<user>",
+    "azure_attributes": {
+     "availability": "ON_DEMAND_AZURE",
+     "first_on_demand": 1,
+     "spot_bid_max_price": -1
+    },
+    "enable_elastic_disk": true
+   },
+   "notebook_task": {
+    "notebook_path": "/Users/<user>/Generative Tracker/scripts/ltx_render_windows",
+    "base_parameters": {
+     "dataset": "sportsmot",
+     "vids": "all_val",
+     "win": "49",
+     "stride": "40",
+     "out_suffix": "_ov9",
+     "size": "512"
+    }
+   },
+   "timeout_seconds": 14400
+  }
+ ]
+}

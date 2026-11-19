@@ -1,0 +1,164 @@
+{
+ "params": {
+  "gap_min": 9,
+  "ctx": 15,
+  "match_iou": 0.3,
+  "redetect_min": 3,
+  "kalman": {
+   "iou": 0.3,
+   "max_age": 30,
+   "min_hits": 1
+  },
+  "bank": {
+   "momentum": 0.9,
+   "max_misses": 50,
+   "w_app": 0.5,
+   "w_motion": 0.5,
+   "match_thr": 0.6,
+   "dino": "facebook/dinov3-vitb16-pretrain-lvd1689m"
+  }
+ },
+ "summary": {
+  "ltx_arm_a_chain__native_raw_color": {
+   "short9-24": {
+    "events": 234,
+    "cond_n": 127,
+    "reacq": 60,
+    "cond_rate": 0.472,
+    "uncond_rate": 0.256,
+    "mean_chance": 0.077,
+    "carry_over_frac_of_reacq": 1.0
+   },
+   "subwin25-48": {
+    "events": 88,
+    "cond_n": 50,
+    "reacq": 19,
+    "cond_rate": 0.38,
+    "uncond_rate": 0.216,
+    "mean_chance": 0.083,
+    "carry_over_frac_of_reacq": 1.0
+   },
+   "xwin49-150": {
+    "events": 53,
+    "cond_n": 26,
+    "reacq": 7,
+    "cond_rate": 0.269,
+    "uncond_rate": 0.132,
+    "mean_chance": 0.08,
+    "carry_over_frac_of_reacq": 1.0
+   },
+   "long>150": {
+    "events": 8,
+    "cond_n": 2,
+    "reacq": 0,
+    "cond_rate": 0.0,
+    "uncond_rate": 0.0,
+    "mean_chance": 0.061,
+    "carry_over_frac_of_reacq": null
+   },
+   "ALL": {
+    "events": 383,
+    "cond_n": 205,
+    "reacq": 86,
+    "cond_rate": 0.42,
+    "uncond_rate": 0.225,
+    "mean_chance": 0.079,
+    "carry_over_frac_of_reacq": 1.0
+   }
+  },
+  "ltx_arm_a_chain__kalman_iou": {
+   "short9-24": {
+    "events": 234,
+    "cond_n": 127,
+    "reacq": 33,
+    "cond_rate": 0.26,
+    "uncond_rate": 0.141,
+    "mean_chance": 0.05,
+    "carry_over_frac_of_reacq": 1.0
+   },
+   "subwin25-48": {
+    "events": 88,
+    "cond_n": 50,
+    "reacq": 12,
+    "cond_rate": 0.24,
+    "uncond_rate": 0.136,
+    "mean_chance": 0.056,
+    "carry_over_frac_of_reacq": 1.0
+   },
+   "xwin49-150": {
+    "events": 53,
+    "cond_n": 26,
+    "reacq": 2,
+    "cond_rate": 0.077,
+    "uncond_rate": 0.038,
+    "mean_chance": 0.054,
+    "carry_over_frac_of_reacq": 1.0
+   },
+   "long>150": {
+    "events": 8,
+    "cond_n": 2,
+    "reacq": 0,
+    "cond_rate": 0.0,
+    "uncond_rate": 0.0,
+    "mean_chance": 0.04,
+    "carry_over_frac_of_reacq": null
+   },
+   "ALL": {
+    "events": 383,
+    "cond_n": 205,
+    "reacq": 47,
+    "cond_rate": 0.229,
+    "uncond_rate": 0.123,
+    "mean_chance": 0.052,
+    "carry_over_frac_of_reacq": 1.0
+   }
+  },
+  "ltx_arm_a_chain__bank_dino": {
+   "short9-24": {
+    "events": 234,
+    "cond_n": 127,
+    "reacq": 39,
+    "cond_rate": 0.307,
+    "uncond_rate": 0.167,
+    "mean_chance": 0.055,
+    "carry_over_frac_of_reacq": 0.949
+   },
+   "subwin25-48": {
+    "events": 88,
+    "cond_n": 50,
+    "reacq": 10,
+    "cond_rate": 0.2,
+    "uncond_rate": 0.114,
+    "mean_chance": 0.063,
+    "carry_over_frac_of_reacq": 1.0
+   },
+   "xwin49-150": {
+    "events": 53,
+    "cond_n": 26,
+    "reacq": 1,
+    "cond_rate": 0.038,
+    "uncond_rate": 0.019,
+    "mean_chance": 0.06,
+    "carry_over_frac_of_reacq": 1.0
+   },
+   "long>150": {
+    "events": 8,
+    "cond_n": 2,
+    "reacq": 0,
+    "cond_rate": 0.0,
+    "uncond_rate": 0.0,
+    "mean_chance": 0.041,
+    "carry_over_frac_of_reacq": null
+   },
+   "ALL": {
+    "events": 383,
+    "cond_n": 205,
+    "reacq": 50,
+    "cond_rate": 0.244,
+    "uncond_rate": 0.131,
+    "mean_chance": 0.058,
+    "carry_over_frac_of_reacq": 0.96
+   }
+  }
+ }
+}

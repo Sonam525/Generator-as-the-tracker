@@ -1,0 +1,117 @@
+{
+ "params": {
+  "gap_min": 9,
+  "ctx": 15,
+  "match_iou": 0.3,
+  "redetect_min": 3,
+  "kalman": {
+   "iou": 0.3,
+   "max_age": 30,
+   "min_hits": 1
+  },
+  "bank": {
+   "momentum": 0.9,
+   "max_misses": 50,
+   "w_app": 0.5,
+   "w_motion": 0.5,
+   "match_thr": 0.6,
+   "dino": "facebook/dinov3-vitb16-pretrain-lvd1689m"
+  }
+ },
+ "summary": {
+  "ltx_seed1_chain__native_raw_color": {
+   "short9-24": {
+    "events": 56,
+    "cond_n": 28,
+    "reacq": 8,
+    "cond_rate": 0.286,
+    "uncond_rate": 0.143,
+    "mean_chance": 0.068,
+    "carry_over_frac_of_reacq": 1.0
+   },
+   "subwin25-48": {
+    "events": 28,
+    "cond_n": 21,
+    "reacq": 8,
+    "cond_rate": 0.381,
+    "uncond_rate": 0.286,
+    "mean_chance": 0.083,
+    "carry_over_frac_of_reacq": 1.0
+   },
+   "xwin49-150": {
+    "events": 20,
+    "cond_n": 9,
+    "reacq": 3,
+    "cond_rate": 0.333,
+    "uncond_rate": 0.15,
+    "mean_chance": 0.072,
+    "carry_over_frac_of_reacq": 1.0
+   },
+   "long>150": {
+    "events": 4,
+    "cond_n": 1,
+    "reacq": 0,
+    "cond_rate": 0.0,
+    "uncond_rate": 0.0,
+    "mean_chance": 0.056,
+    "carry_over_frac_of_reacq": null
+   },
+   "ALL": {
+    "events": 108,
+    "cond_n": 59,
+    "reacq": 19,
+    "cond_rate": 0.322,
+    "uncond_rate": 0.176,
+    "mean_chance": 0.074,
+    "carry_over_frac_of_reacq": 1.0
+   }
+  },
+  "ltx_seed2_chain__native_raw_color": {
+   "short9-24": {
+    "events": 56,
+    "cond_n": 30,
+    "reacq": 15,
+    "cond_rate": 0.5,
+    "uncond_rate": 0.268,
+    "mean_chance": 0.084,
+    "carry_over_frac_of_reacq": 1.0
+   },
+   "subwin25-48": {
+    "events": 28,
+    "cond_n": 14,
+    "reacq": 6,
+    "cond_rate": 0.429,
+    "uncond_rate": 0.214,
+    "mean_chance": 0.09,
+    "carry_over_frac_of_reacq": 1.0
+   },
+   "xwin49-150": {
+    "events": 20,
+    "cond_n": 9,
+    "reacq": 3,
+    "cond_rate": 0.333,
+    "uncond_rate": 0.15,
+    "mean_chance": 0.074,
+    "carry_over_frac_of_reacq": 1.0
+   },
+   "long>150": {
+    "events": 4,
+    "cond_n": 2,
+    "reacq": 0,
+    "cond_rate": 0.0,
+    "uncond_rate": 0.0,
+    "mean_chance": 0.05,
+    "carry_over_frac_of_reacq": null
+   },
+   "ALL": {
+    "events": 108,
+    "cond_n": 55,
+    "reacq": 24,
+    "cond_rate": 0.436,
+    "uncond_rate": 0.222,
+    "mean_chance": 0.083,
+    "carry_over_frac_of_reacq": 1.0
+   }
+  }
+ }
+}

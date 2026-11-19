@@ -1,0 +1,211 @@
+{
+ "params": {
+  "gap_min": 9,
+  "ctx": 15,
+  "match_iou": 0.3,
+  "redetect_min": 3,
+  "kalman": {
+   "iou": 0.3,
+   "max_age": 30,
+   "min_hits": 1
+  },
+  "bank": {
+   "momentum": 0.9,
+   "max_misses": 50,
+   "w_app": 0.5,
+   "w_motion": 0.5,
+   "match_thr": 0.6,
+   "dino": "facebook/dinov3-vitb16-pretrain-lvd1689m"
+  }
+ },
+ "summary": {
+  "ltx_arm_c_chain_ckptA__native_raw_color": {
+   "short9-24": {
+    "events": 234,
+    "cond_n": 130,
+    "reacq": 32,
+    "cond_rate": 0.246,
+    "uncond_rate": 0.137,
+    "mean_chance": 0.056,
+    "carry_over_frac_of_reacq": 0.969
+   },
+   "subwin25-48": {
+    "events": 88,
+    "cond_n": 51,
+    "reacq": 9,
+    "cond_rate": 0.176,
+    "uncond_rate": 0.102,
+    "mean_chance": 0.059,
+    "carry_over_frac_of_reacq": 1.0
+   },
+   "xwin49-150": {
+    "events": 53,
+    "cond_n": 20,
+    "reacq": 4,
+    "cond_rate": 0.2,
+    "uncond_rate": 0.075,
+    "mean_chance": 0.057,
+    "carry_over_frac_of_reacq": 1.0
+   },
+   "long>150": {
+    "events": 8,
+    "cond_n": 4,
+    "reacq": 0,
+    "cond_rate": 0.0,
+    "uncond_rate": 0.0,
+    "mean_chance": 0.039,
+    "carry_over_frac_of_reacq": null
+   },
+   "ALL": {
+    "events": 383,
+    "cond_n": 205,
+    "reacq": 45,
+    "cond_rate": 0.22,
+    "uncond_rate": 0.117,
+    "mean_chance": 0.056,
+    "carry_over_frac_of_reacq": 0.978
+   }
+  },
+  "ltx_arm_c_chain_ckptA__native_v3many": {
+   "short9-24": {
+    "events": 234,
+    "cond_n": 127,
+    "reacq": 32,
+    "cond_rate": 0.252,
+    "uncond_rate": 0.137,
+    "mean_chance": 0.056,
+    "carry_over_frac_of_reacq": 0.969
+   },
+   "subwin25-48": {
+    "events": 88,
+    "cond_n": 50,
+    "reacq": 6,
+    "cond_rate": 0.12,
+    "uncond_rate": 0.068,
+    "mean_chance": 0.059,
+    "carry_over_frac_of_reacq": 1.0
+   },
+   "xwin49-150": {
+    "events": 53,
+    "cond_n": 20,
+    "reacq": 3,
+    "cond_rate": 0.15,
+    "uncond_rate": 0.057,
+    "mean_chance": 0.058,
+    "carry_over_frac_of_reacq": 1.0
+   },
+   "long>150": {
+    "events": 8,
+    "cond_n": 3,
+    "reacq": 0,
+    "cond_rate": 0.0,
+    "uncond_rate": 0.0,
+    "mean_chance": 0.033,
+    "carry_over_frac_of_reacq": null
+   },
+   "ALL": {
+    "events": 383,
+    "cond_n": 200,
+    "reacq": 41,
+    "cond_rate": 0.205,
+    "uncond_rate": 0.107,
+    "mean_chance": 0.057,
+    "carry_over_frac_of_reacq": 0.976
+   }
+  },
+  "ltx_arm_c_chain_ckptA__kalman_iou": {
+   "short9-24": {
+    "events": 234,
+    "cond_n": 130,
+    "reacq": 27,
+    "cond_rate": 0.208,
+    "uncond_rate": 0.115,
+    "mean_chance": 0.036,
+    "carry_over_frac_of_reacq": 1.0
+   },
+   "subwin25-48": {
+    "events": 88,
+    "cond_n": 51,
+    "reacq": 6,
+    "cond_rate": 0.118,
+    "uncond_rate": 0.068,
+    "mean_chance": 0.041,
+    "carry_over_frac_of_reacq": 1.0
+   },
+   "xwin49-150": {
+    "events": 53,
+    "cond_n": 20,
+    "reacq": 1,
+    "cond_rate": 0.05,
+    "uncond_rate": 0.019,
+    "mean_chance": 0.041,
+    "carry_over_frac_of_reacq": 1.0
+   },
+   "long>150": {
+    "events": 8,
+    "cond_n": 4,
+    "reacq": 0,
+    "cond_rate": 0.0,
+    "uncond_rate": 0.0,
+    "mean_chance": 0.024,
+    "carry_over_frac_of_reacq": null
+   },
+   "ALL": {
+    "events": 383,
+    "cond_n": 205,
+    "reacq": 34,
+    "cond_rate": 0.166,
+    "uncond_rate": 0.089,
+    "mean_chance": 0.037,
+    "carry_over_frac_of_reacq": 1.0
+   }
+  },
+  "ltx_arm_c_chain_ckptA__bank_dino": {
+   "short9-24": {
+    "events": 234,
+    "cond_n": 130,
+    "reacq": 23,
+    "cond_rate": 0.177,
+    "uncond_rate": 0.098,
+    "mean_chance": 0.041,
+    "carry_over_frac_of_reacq": 0.913
+   },
+   "subwin25-48": {
+    "events": 88,
+    "cond_n": 51,
+    "reacq": 7,
+    "cond_rate": 0.137,
+    "uncond_rate": 0.08,
+    "mean_chance": 0.046,
+    "carry_over_frac_of_reacq": 1.0
+   },
+   "xwin49-150": {
+    "events": 53,
+    "cond_n": 20,
+    "reacq": 1,
+    "cond_rate": 0.05,
+    "uncond_rate": 0.019,
+    "mean_chance": 0.044,
+    "carry_over_frac_of_reacq": 1.0
+   },
+   "long>150": {
+    "events": 8,
+    "cond_n": 4,
+    "reacq": 0,
+    "cond_rate": 0.0,
+    "uncond_rate": 0.0,
+    "mean_chance": 0.028,
+    "carry_over_frac_of_reacq": null
+   },
+   "ALL": {
+    "events": 383,
+    "cond_n": 205,
+    "reacq": 31,
+    "cond_rate": 0.151,
+    "uncond_rate": 0.081,
+    "mean_chance": 0.042,
+    "carry_over_frac_of_reacq": 0.935
+   }
+  }
+ }
+}

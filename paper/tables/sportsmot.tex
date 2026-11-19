@@ -1,0 +1,14 @@
+& \multicolumn{4}{c}{all val videos (TrackEval combined)} & \multicolumn{4}{c}{held-out mean} & \\
+\cmidrule(lr){2-5}\cmidrule(lr){6-9}
+association & HOTA & DetA & AssA & IDF1 & HOTA & DetA & AssA & IDF1 & re-acq \\
+\midrule
+\multicolumn{10}{l}{\textit{Zero-shot (DanceTrack checkpoint)} (8 selection videos)} \\
+generated colour & 17.0 & 14.0 & 20.8 & 17.8 & -- & -- & -- & -- & 4/22 \\
+Kalman/IoU on the same boxes & 13.3 & 14.1 & 13.0 & 12.7 & -- & -- & -- & -- & 0/22 \\
+DINOv3 bank on the same boxes & 14.7 & 14.1 & 15.8 & 14.6 & -- & -- & -- & -- & 5/22 \\
+\midrule
+\multicolumn{10}{l}{\textit{Fine-tuned on SportsMOT train} (45 videos; 37 held out)} \\
+generated colour & 26.9 & 26.0 & 28.2 & 31.9 & 26.9 & 26.3 & 28.4 & 32.2 & 18/159 \\
+Kalman/IoU on the same boxes & 20.9 & 26.2 & 17.1 & 22.3 & 21.1 & 26.5 & 17.7 & 22.9 & 0/159 \\
+DINOv3 bank on the same boxes & 23.0 & 26.1 & 20.7 & 25.9 & 23.1 & 26.4 & 21.3 & 26.6 & 16/159 \\
+\bottomrule

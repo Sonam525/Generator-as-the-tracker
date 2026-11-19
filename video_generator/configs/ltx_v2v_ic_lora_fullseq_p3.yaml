@@ -1,0 +1,207 @@
+# Phase-3 NO-REGRESSION check: generate all 18 ov9 windows of dancetrack0065
+# INDEPENDENTLY (no prefix) with the phase-3 step-2500 LoRA. Compare v3-stitched vs the
+# phase-2 baseline 0.466 - the p=0.5 unconditioned mix should have preserved this.
+model:
+  model_path: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/models/ltx2_native/model/ltx-2.3-22b-dev.safetensors"
+  text_encoder_path: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/models/ltx2_native/gemma"
+  training_mode: "lora"
+  load_checkpoint: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/checkpoints/ltx_v2v_ic_lora_phase3/checkpoints/lora_weights_step_02500.safetensors"
+lora:
+  rank: 32
+  alpha: 32
+  dropout: 0.0
+  target_modules:
+    - "attn1.to_k"
+    - "attn1.to_q"
+    - "attn1.to_v"
+    - "attn1.to_out.0"
+    - "attn2.to_k"
+    - "attn2.to_q"
+    - "attn2.to_v"
+    - "attn2.to_out.0"
+    - "ff.net.0.proj"
+    - "ff.net.2"
+training_strategy:
+  name: "flexible"
+  video:
+    is_generated: true
+    latents_dir: "latents"
+    conditions:
+      - type: reference
+        latents_dir: "reference_latents"
+        probability: 1.0
+optimization:
+  learning_rate: 2e-4
+  steps: 2501
+  batch_size: 1
+  gradient_accumulation_steps: 1
+  max_grad_norm: 1.0
+  optimizer_type: "adamw"
+  scheduler_type: "constant"
+  scheduler_params: {}
+  enable_gradient_checkpointing: true
+acceleration:
+  mixed_precision_mode: "bf16"
+  quantization: null
+  load_text_encoder_in_8bit: false
+  offload_optimizer_during_validation: true
+data:
+  preprocessed_data_root: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/ltx_ds/phase2_train/.precomputed"
+  num_dataloader_workers: 2
+validation:
+  samples:
+    - prompt: "segmentation ID map: paint each person a distinct flat colour on a black background"
+      conditions:
+        - type: reference
+          video: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/ltx_ds/fullseq/dancetrack0065_ov9/rgb/dancetrack0065_w00_f000001.mkv"
+          downscale_factor: 1
+          temporal_scale_factor: 1
+          include_in_output: true
+    - prompt: "segmentation ID map: paint each person a distinct flat colour on a black background"
+      conditions:
+        - type: reference
+          video: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/ltx_ds/fullseq/dancetrack0065_ov9/rgb/dancetrack0065_w01_f000041.mkv"
+          downscale_factor: 1
+          temporal_scale_factor: 1
+          include_in_output: true
+    - prompt: "segmentation ID map: paint each person a distinct flat colour on a black background"
+      conditions:
+        - type: reference
+          video: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/ltx_ds/fullseq/dancetrack0065_ov9/rgb/dancetrack0065_w02_f000081.mkv"
+          downscale_factor: 1
+          temporal_scale_factor: 1
+          include_in_output: true
+    - prompt: "segmentation ID map: paint each person a distinct flat colour on a black background"
+      conditions:
+        - type: reference
+          video: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/ltx_ds/fullseq/dancetrack0065_ov9/rgb/dancetrack0065_w03_f000121.mkv"
+          downscale_factor: 1
+          temporal_scale_factor: 1
+          include_in_output: true
+    - prompt: "segmentation ID map: paint each person a distinct flat colour on a black background"
+      conditions:
+        - type: reference
+          video: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/ltx_ds/fullseq/dancetrack0065_ov9/rgb/dancetrack0065_w04_f000161.mkv"
+          downscale_factor: 1
+          temporal_scale_factor: 1
+          include_in_output: true
+    - prompt: "segmentation ID map: paint each person a distinct flat colour on a black background"
+      conditions:
+        - type: reference
+          video: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/ltx_ds/fullseq/dancetrack0065_ov9/rgb/dancetrack0065_w05_f000201.mkv"
+          downscale_factor: 1
+          temporal_scale_factor: 1
+          include_in_output: true
+    - prompt: "segmentation ID map: paint each person a distinct flat colour on a black background"
+      conditions:
+        - type: reference
+          video: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/ltx_ds/fullseq/dancetrack0065_ov9/rgb/dancetrack0065_w06_f000241.mkv"
+          downscale_factor: 1
+          temporal_scale_factor: 1
+          include_in_output: true
+    - prompt: "segmentation ID map: paint each person a distinct flat colour on a black background"
+      conditions:
+        - type: reference
+          video: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/ltx_ds/fullseq/dancetrack0065_ov9/rgb/dancetrack0065_w07_f000281.mkv"
+          downscale_factor: 1
+          temporal_scale_factor: 1
+          include_in_output: true
+    - prompt: "segmentation ID map: paint each person a distinct flat colour on a black background"
+      conditions:
+        - type: reference
+          video: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/ltx_ds/fullseq/dancetrack0065_ov9/rgb/dancetrack0065_w08_f000321.mkv"
+          downscale_factor: 1
+          temporal_scale_factor: 1
+          include_in_output: true
+    - prompt: "segmentation ID map: paint each person a distinct flat colour on a black background"
+      conditions:
+        - type: reference
+          video: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/ltx_ds/fullseq/dancetrack0065_ov9/rgb/dancetrack0065_w09_f000361.mkv"
+          downscale_factor: 1
+          temporal_scale_factor: 1
+          include_in_output: true
+    - prompt: "segmentation ID map: paint each person a distinct flat colour on a black background"
+      conditions:
+        - type: reference
+          video: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/ltx_ds/fullseq/dancetrack0065_ov9/rgb/dancetrack0065_w10_f000401.mkv"
+          downscale_factor: 1
+          temporal_scale_factor: 1
+          include_in_output: true
+    - prompt: "segmentation ID map: paint each person a distinct flat colour on a black background"
+      conditions:
+        - type: reference
+          video: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/ltx_ds/fullseq/dancetrack0065_ov9/rgb/dancetrack0065_w11_f000441.mkv"
+          downscale_factor: 1
+          temporal_scale_factor: 1
+          include_in_output: true
+    - prompt: "segmentation ID map: paint each person a distinct flat colour on a black background"
+      conditions:
+        - type: reference
+          video: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/ltx_ds/fullseq/dancetrack0065_ov9/rgb/dancetrack0065_w12_f000481.mkv"
+          downscale_factor: 1
+          temporal_scale_factor: 1
+          include_in_output: true
+    - prompt: "segmentation ID map: paint each person a distinct flat colour on a black background"
+      conditions:
+        - type: reference
+          video: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/ltx_ds/fullseq/dancetrack0065_ov9/rgb/dancetrack0065_w13_f000521.mkv"
+          downscale_factor: 1
+          temporal_scale_factor: 1
+          include_in_output: true
+    - prompt: "segmentation ID map: paint each person a distinct flat colour on a black background"
+      conditions:
+        - type: reference
+          video: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/ltx_ds/fullseq/dancetrack0065_ov9/rgb/dancetrack0065_w14_f000561.mkv"
+          downscale_factor: 1
+          temporal_scale_factor: 1
+          include_in_output: true
+    - prompt: "segmentation ID map: paint each person a distinct flat colour on a black background"
+      conditions:
+        - type: reference
+          video: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/ltx_ds/fullseq/dancetrack0065_ov9/rgb/dancetrack0065_w15_f000601.mkv"
+          downscale_factor: 1
+          temporal_scale_factor: 1
+          include_in_output: true
+    - prompt: "segmentation ID map: paint each person a distinct flat colour on a black background"
+      conditions:
+        - type: reference
+          video: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/ltx_ds/fullseq/dancetrack0065_ov9/rgb/dancetrack0065_w16_f000641.mkv"
+          downscale_factor: 1
+          temporal_scale_factor: 1
+          include_in_output: true
+    - prompt: "segmentation ID map: paint each person a distinct flat colour on a black background"
+      conditions:
+        - type: reference
+          video: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/ltx_ds/fullseq/dancetrack0065_ov9/rgb/dancetrack0065_w17_f000654.mkv"
+          downscale_factor: 1
+          temporal_scale_factor: 1
+          include_in_output: true
+  negative_prompt: "worst quality, inconsistent motion, blurry, jittery, distorted"
+  video_dims: [512, 512, 49]
+  frame_rate: 24.0
+  seed: 0
+  inference_steps: 20
+  interval: 100000
+  guidance_scale: 4.0
+  stg_scale: 1.0
+  stg_blocks: [29]
+  stg_mode: "stg_v"
+  generate_audio: false
+  skip_initial_validation: false
+checkpoints:
+  interval: 100000
+  keep_last_n: 1
+  precision: "bfloat16"
+flow_matching:
+  timestep_sampling_mode: "shifted_logit_normal"
+  timestep_sampling_params: {}
+hub:
+  push_to_hub: false
+  hub_model_id: null
+wandb:
+  enabled: false
+  project: "gentrack-ltx-p2c"
+  tags: ["ltx2","ic-lora","fullseq-p3"]
+  log_validation_videos: false
+seed: 0
+output_dir: "/local_disk0/ltx_out/fullseq_0065_p3"

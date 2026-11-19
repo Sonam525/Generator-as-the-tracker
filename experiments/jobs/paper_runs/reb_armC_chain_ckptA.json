@@ -1,0 +1,42 @@
+{
+ "run_name": "reb_armC_chain_ckptA",
+ "tasks": [
+  {
+   "task_key": "gen",
+   "new_cluster": {
+    "spark_version": "17.3.x-gpu-ml-scala2.13",
+    "node_type_id": "Standard_NC24ads_A100_v4",
+    "driver_node_type_id": "Standard_NC24ads_A100_v4",
+    "num_workers": 0,
+    "spark_conf": {
+     "spark.databricks.cluster.profile": "singleNode",
+     "spark.master": "local[*]"
+    },
+    "custom_tags": {
+     "ResourceClass": "SingleNode"
+    },
+    "data_security_mode": "SINGLE_USER",
+    "single_user_name": "<user>",
+    "azure_attributes": {
+     "availability": "ON_DEMAND_AZURE",
+     "first_on_demand": 1,
+     "spot_bid_max_price": -1
+    },
+    "enable_elastic_disk": true
+   },
+   "timeout_seconds": 86400,
+   "notebook_task": {
+    "notebook_path": "/Users/<user>/Generative Tracker/scripts/ltx_run_chain",
+    "base_parameters": {
+     "vids": "all25",
+     "mode": "chain",
+     "lora_ckpt": "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/checkpoints/ltx_v2v_ic_lora_phase2/checkpoints/lora_weights_step_01500.safetensors",
+     "out_name": "ltx_arm_c_chain_ckptA",
+     "win_suffix": "_ov9",
+     "size": "512",
+     "seed": "0"
+    }
+   }
+  }
+ ]
+}

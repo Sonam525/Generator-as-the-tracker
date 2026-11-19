@@ -1,0 +1,83 @@
+{
+ "run_name": "sm-valchain-resume-and-eval",
+ "tasks": [
+  {
+   "task_key": "gen",
+   "new_cluster": {
+    "spark_version": "17.3.x-gpu-ml-scala2.13",
+    "node_type_id": "Standard_NC24ads_A100_v4",
+    "driver_node_type_id": "Standard_NC24ads_A100_v4",
+    "num_workers": 0,
+    "spark_conf": {
+     "spark.databricks.cluster.profile": "singleNode",
+     "spark.master": "local[*]"
+    },
+    "custom_tags": {
+     "ResourceClass": "SingleNode"
+    },
+    "data_security_mode": "SINGLE_USER",
+    "single_user_name": "<user>",
+    "azure_attributes": {
+     "availability": "ON_DEMAND_AZURE",
+     "first_on_demand": 1,
+     "spot_bid_max_price": -1
+    },
+    "enable_elastic_disk": true
+   },
+   "timeout_seconds": 43200,
+   "notebook_task": {
+    "notebook_path": "/Users/<user>/Generative Tracker/scripts/ltx_run_chain",
+    "base_parameters": {
+     "vids": "v_00HRwkvvjtQ_c001,v_00HRwkvvjtQ_c003,v_00HRwkvvjtQ_c005,v_00HRwkvvjtQ_c007,v_00HRwkvvjtQ_c008,v_00HRwkvvjtQ_c011,v_4r8QL_wglzQ_c001,v_5ekaksddqrc_c001,v_5ekaksddqrc_c002,v_5ekaksddqrc_c003,v_5ekaksddqrc_c004,v_5ekaksddqrc_c005,v_BgwzTUxJaeU_c008,v_BgwzTUxJaeU_c012,v_BgwzTUxJaeU_c014,v_0kUtTtmLaJA_c004,v_0kUtTtmLaJA_c005,v_0kUtTtmLaJA_c006,v_0kUtTtmLaJA_c007,v_0kUtTtmLaJA_c008,v_0kUtTtmLaJA_c010,v_4-EmEtrturE_c009,v_9MHDmAMxO5I_c002,v_9MHDmAMxO5I_c003,v_9MHDmAMxO5I_c004,v_9MHDmAMxO5I_c006,v_9MHDmAMxO5I_c009,v_cC2mHWqMcjk_c007,v_cC2mHWqMcjk_c008,v_cC2mHWqMcjk_c009,v_2QhNRucNC7E_c017,v_dw7LOz17Omg_c053,v_dw7LOz17Omg_c067,v_G-vNjfx1GGc_c004,v_G-vNjfx1GGc_c008,v_G-vNjfx1GGc_c600,v_G-vNjfx1GGc_c601,v_i2_L4qquVg0_c006,v_i2_L4qquVg0_c007,v_i2_L4qquVg0_c009,v_i2_L4qquVg0_c010,v_ITo3sCnpw_k_c007,v_ITo3sCnpw_k_c010,v_ITo3sCnpw_k_c011,v_ITo3sCnpw_k_c012",
+     "mode": "chain",
+     "lora_ckpt": "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/checkpoints/ltx_v2v_ic_lora_sm_phase3/checkpoints/lora_weights_step_01500.safetensors",
+     "out_name": "ltx_sm_arm_a_chain",
+     "win_suffix": "_ov9",
+     "size": "512",
+     "seed": "0"
+    }
+   }
+  },
+  {
+   "task_key": "eval",
+   "new_cluster": {
+    "spark_version": "17.3.x-gpu-ml-scala2.13",
+    "node_type_id": "Standard_NC4as_T4_v3",
+    "driver_node_type_id": "Standard_NC4as_T4_v3",
+    "num_workers": 0,
+    "spark_conf": {
+     "spark.databricks.cluster.profile": "singleNode",
+     "spark.master": "local[*]"
+    },
+    "custom_tags": {
+     "ResourceClass": "SingleNode"
+    },
+    "data_security_mode": "SINGLE_USER",
+    "single_user_name": "<user>",
+    "azure_attributes": {
+     "availability": "ON_DEMAND_AZURE",
+     "first_on_demand": 1,
+     "spot_bid_max_price": -1
+    },
+    "enable_elastic_disk": true
+   },
+   "timeout_seconds": 21600,
+   "depends_on": [
+    {
+     "task_key": "gen"
+    }
+   ],
+   "notebook_task": {
+    "notebook_path": "/Users/<user>/Generative Tracker/scripts/ltx_assoc_baselines",
+    "base_parameters": {
+     "dataset": "sportsmot",
+     "arms": "ltx_sm_arm_a_chain",
+     "trackers": "native,kalman_iou,bank_dino",
+     "nproc": "4",
+     "vids": "all_val",
+     "out_name": "ltx_sm_val_eval"
+    }
+   }
+  }
+ ]
+}

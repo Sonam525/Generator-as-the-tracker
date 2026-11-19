@@ -1,0 +1,40 @@
+{
+ "run_name": "rev-assoc-baselines-FULL-A",
+ "tasks": [
+  {
+   "task_key": "assoc",
+   "new_cluster": {
+    "spark_version": "17.3.x-gpu-ml-scala2.13",
+    "node_type_id": "Standard_NC4as_T4_v3",
+    "driver_node_type_id": "Standard_NC4as_T4_v3",
+    "num_workers": 0,
+    "spark_conf": {
+     "spark.databricks.cluster.profile": "singleNode",
+     "spark.master": "local[*]"
+    },
+    "custom_tags": {
+     "ResourceClass": "SingleNode"
+    },
+    "data_security_mode": "SINGLE_USER",
+    "single_user_name": "<user>",
+    "azure_attributes": {
+     "availability": "ON_DEMAND_AZURE",
+     "first_on_demand": 1,
+     "spot_bid_max_price": -1
+    },
+    "enable_elastic_disk": true
+   },
+   "notebook_task": {
+    "notebook_path": "/Users/<user>/Generative Tracker/scripts/ltx_assoc_baselines",
+    "base_parameters": {
+     "arms": "ltx_arm_a_chain",
+     "trackers": "native,kalman_iou,bank_dino",
+     "nproc": "4",
+     "vids": "all25",
+     "out_name": "ltx_revision_A"
+    }
+   },
+   "timeout_seconds": 21600
+  }
+ ]
+}

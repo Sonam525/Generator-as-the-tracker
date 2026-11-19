@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Generator Is the Tracker</title>
+<meta name="description" content="A video generator, fine-tuned to paint every person a colour that persists over time, tracks full DanceTrack videos with no separately trained detector, no motion model and no association step.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:title" content="The Generator Is the Tracker">
+<meta property="og:description" content="Multi-object tracking by painting persistent identity colours with a video generator.">
+<meta property="og:image" content="https://sonam525.github.io/Generator-as-the-tracker/media/hero_0065.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23000'/%3E%3Crect x='6' y='6' width='6' height='20' rx='3' fill='%2300ff00'/%3E%3Crect x='13.5' y='6' width='6' height='20' rx='3' fill='%23ff0000'/%3E%3Crect x='21' y='6' width='6' height='20' rx='3' fill='%2300ffff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css?v=1">
+</head>
+<body>
+
+<header class="top">
+  <a class="brand" href="#overview">The Generator Is the Tracker</a>
+  <nav aria-label="Sections">
+    <a href="#overview">Overview</a>
+    <a href="#idea">Idea</a>
+    <a href="#method">How it works</a>
+    <a href="#identity">Where identity comes from</a>
+    <a href="#test">Test server</a>
+    <a href="#reacq">Occlusion</a>
+    <a href="#limits">Limits</a>
+    <a href="#background">Background</a>
+    <a href="#code">Code</a>
+    <a href="#cite">Citation</a>
+  </nav>
+</header>
+
+<main>
+
+<section id="overview" class="hero">
+  <p class="eyebrow">Haiyu Yang, Miel Hostens · arXiv:2607.17120</p>
+  <h1>The Generator Is the Tracker: multi-object tracking by painting persistent identity colours</h1>
+  <p class="lead">Trackers keep identity outside the video: track buffers, motion models, appearance embeddings. A video generator already has to know which pixels belong to the same person from one frame to the next, or the people in its videos would not stay themselves. We ask whether that knowledge can be read out directly, by asking the generator to paint each person a colour that stays the same over time.</p>
+  <p>We fine-tune a 22B text-to-video model (LTX-2.3) to turn an RGB clip into an <em>ID-map</em> clip: every person painted a flat, distinct colour on black, same colour, same person. Long videos are generated as chained windows, and a short continuation fine-tune teaches the model to extend a colouring it is handed. Tracks are read off the generated pixels. There is no separately trained detector, no motion model and no association module.</p>
+  <p class="links">
+    <a class="button" href="https://github.com/Sonam525/Generator-as-the-tracker">Code</a>
+    <a class="button ghost" href="https://arxiv.org/abs/2607.17120">Paper (arXiv)</a>
+    <a class="button ghost" href="https://huggingface.co/Sonam5/Generator-as-the-tracker">Checkpoints</a>
+  </p>
+
+  <figure class="wide video">
+    <video id="hero" controls muted loop playsinline preload="metadata" poster="media/hero_0065.jpg" width="1284" height="360" aria-label="A DanceTrack validation video and the ID-map video generated from it, side by side">
+      <source src="media/hero_0065.mp4" type="video/mp4">
+    </video>
+    <figcaption>A full DanceTrack validation video (dancetrack0065, 702 frames, five dancers in near-identical costumes) and the ID-map video the system generated from it, in 18 chained windows of 49 frames. Each colour is one identity, carried only by the generated pixels from window to window. The five main colours persist, with short-lived fragments: over the whole video the chain scores IDF1 0.47 with 30 predicted track ids for 5 people. This is the development video, on which design decisions were made. Input video: DanceTrack (<a href="#refs">Sun et al., 2022</a>).</figcaption>
+  </figure>
+</section>
+
+<section class="tiles" aria-label="Headline results">
+  <div class="tile"><b>40.3 HOTA</b><span>on the DanceTrack test server, from generated video alone, in one frozen submission</span></div>
+  <div class="tile"><b>44.1 AssA</b><span>association above every tracker of the 2020–22 benchmark suite; detection (DetA 37.6) is the deficit</span></div>
+  <div class="tile"><b>34.8 vs 15.9–16.8</b><span>validation HOTA with chaining and continuation training together, against either one alone (18.2 with neither)</span></div>
+  <div class="tile"><b>42 %</b><span>of gap events the chain held on both sides (86 of 205) got their own colour back, against 23–24 % for classical associators on the same boxes</span></div>
+</section>
+
+<section id="idea">
+  <h2>The idea: identity as colour</h2>
+  <div class="idea">
+    <div>
+      <p>Tracking has two parts. <strong>Binding</strong>: the same region must get the same label from frame to frame. <strong>State</strong>: a person who is hidden must still be remembered when they come back. Conventional trackers solve both with machinery beside the video. A video diffusion model attends to a whole clip at once, so binding is something it does anyway; the question is whether it can be made to show it, and to carry state from one clip to the next.</p>
+      <p>The interface is an image: each person painted with one of the 47 identity colours of a 48-colour palette (index 0, black, is background), chosen to maximise pairwise separation in CIELAB (closest pair ΔE 26.4). Decoding needs no model: every pixel snaps to its nearest palette colour, each colour's connected regions give a box, and the palette index <em>is</em> the track id. The codec round-trips masks at IoU ≥ 0.99 with every identity preserved, and ID-maps are only ever stored losslessly, because compression smears flat colours.</p>
+    </div>
+    <div>
+      <div class="palette" id="palette" aria-label="The 47 identity colours of the palette"></div>
+      <p class="note">The 47 identity colours. Index 0, black, is background. In training each ground-truth identity is given one colour for the whole video; at inference the model chooses colours itself.</p>
+    </div>
+  </div>
+</section>
+
+<section id="method">
+  <h2>How it works</h2>
+  <figure class="wide fig">
+    <img src="media/figs/fig_overview.png" width="1920" height="720" alt="System overview: the RGB window and the cleaned tail of the previous window enter the video diffusion transformer, which generates an ID-map window; the codec decodes it into tracks and the cleaned map becomes the prefix for the next window.">
+    <figcaption>Each 49-frame window is generated from the aligned RGB window and a 9-frame prefix: the decoded, corrected and re-encoded tail of the previous window. The cleaned map gives the tracks and seeds the next window.</figcaption>
+  </figure>
+  <div class="columns">
+    <div>
+      <h3>Translate</h3>
+      <p>LTX-2.3 is fine-tuned with its native in-context LoRA: the RGB clip enters as clean reference tokens with positions aligned to the target, so attention learns a positionally locked translation from RGB to ID-map, aligned at the level of latent tokens (32×32-pixel patches). Rank 32, 0.74 % of the parameters, on 777 clips from the 40 DanceTrack training videos with silhouettes from SAM 3. The whole fine-tune fits on one 80 GB A100.</p>
+    </div>
+    <div>
+      <h3>Chain</h3>
+      <p>A video is split into 49-frame windows at stride 40. Each window's first 9 frames are fixed to the previous window's tail after <em>decode, correct, re-encode</em>: snapped to palette colours, speckles removed, encoded again. The condition is always a valid ID-map, never raw generation, and it is the only state the system has.</p>
+    </div>
+    <div>
+      <h3>Continue</h3>
+      <p>Chaining at inference alone fails: the model was trained to invent colourings, not to continue one, so past the overlap it repaints. A short continuation fine-tune hands it the target's own first 9 frames half of the time. On the development video full-video IDF1 rises from 0.17 to 0.47.</p>
+    </div>
+  </div>
+</section>
+
+<section id="identity">
+  <h2>Where the identity comes from</h2>
+  <p>Identity could in principle come from linking windows after the fact. To separate the two ingredients we ran a 2×2 factorial on all 25 full-length validation videos with identical window geometry (640 windows per cell): the checkpoint before or after continuation training, run as independent windows (linked afterwards) or as a chain.</p>
+
+  <figure class="wide video">
+    <video id="factorial" controls muted loop playsinline preload="none" poster="media/factorial_0065.jpg" width="964" height="544" aria-label="The input video and three generated ID-map videos: independent windows, chained without continuation training, and chained with continuation training">
+      <source src="media/factorial_0065.mp4" type="video/mp4">
+    </video>
+    <figcaption>The same development video, three ways, raw generated colours with no linking. Independent windows repaint the dancers at almost every window boundary. Chained without continuation training, the colours survive each boundary, because the prefix fixes them, but drift inside the windows. Chained after continuation training they persist far longer, though not perfectly: full-video IDF1 0.47 on this video, against 0.17 without continuation training. Input video: DanceTrack (<a href="#refs">Sun et al., 2022</a>).</figcaption>
+  </figure>
+
+  <div class="chart">
+    <div class="legend"><span><i class="k0"></i>translation-only checkpoint</span><span><i class="k1"></i>after continuation training</span></div>
+    <svg viewBox="0 0 560 290" role="img" aria-labelledby="fact-title">
+      <title id="fact-title">Validation HOTA by generation mode and checkpoint: independent windows 18.2 and 15.9, chained 16.8 and 34.8.</title>
+      <g class="grid">
+        <line x1="60" x2="540" y1="250" y2="250"/><line x1="60" x2="540" y1="197.5" y2="197.5"/>
+        <line x1="60" x2="540" y1="145" y2="145"/><line x1="60" x2="540" y1="92.5" y2="92.5"/>
+        <line x1="60" x2="540" y1="40" y2="40"/>
+      </g>
+      <g class="axis" text-anchor="end">
+        <text x="52" y="254">0</text><text x="52" y="201.5">10</text><text x="52" y="149">20</text>
+        <text x="52" y="96.5">30</text><text x="52" y="44">40</text>
+      </g>
+      <text class="lab" x="60" y="22">HOTA, 25 validation videos</text>
+      <g class="bar"><title>Independent windows, translation-only (B): 18.2 HOTA</title>
+        <path class="b0" d="M143 250V158.45Q143 154.45 147 154.45H195Q199 154.45 199 158.45V250Z"/>
+        <text class="val" x="171" y="147" text-anchor="middle">18.2</text></g>
+      <g class="bar"><title>Independent windows, after continuation training (D): 15.9 HOTA</title>
+        <path class="b1" d="M201 250V170.52Q201 166.52 205 166.52H253Q257 166.52 257 170.52V250Z"/>
+        <text class="val" x="229" y="159" text-anchor="middle">15.9</text></g>
+      <g class="bar"><title>Chained, translation-only (C): 16.8 HOTA</title>
+        <path class="b0" d="M343 250V165.8Q343 161.8 347 161.8H395Q399 161.8 399 165.8V250Z"/>
+        <text class="val" x="371" y="154" text-anchor="middle">16.8</text></g>
+      <g class="bar"><title>Chained, after continuation training (A, ours): 34.8 HOTA</title>
+        <path class="b1" d="M401 250V71.3Q401 67.3 405 67.3H453Q457 67.3 457 71.3V250Z"/>
+        <text class="val" x="429" y="60" text-anchor="middle">34.8</text></g>
+      <text class="glab" x="200" y="274" text-anchor="middle">Independent windows</text>
+      <text class="glab" x="400" y="274" text-anchor="middle">Chained windows</text>
+    </svg>
+  </div>
+
+  <p><strong>Neither ingredient helps on its own; together they double HOTA.</strong> Chaining is worth +18.9 HOTA [15.2, 22.9] for the continuation-trained checkpoint (24 of 25 videos) and nothing for the translation-only one. Re-linking the chain's own windows afterwards changes nothing (34.7), so the colours already carry everything overlap linking can recover.</p>
+  <p><strong>On identical boxes the trained chain's colours beat classical association.</strong> We drop the colour ids from the chain's own boxes and re-associate them with a Kalman/IoU tracker and with a DINOv3 appearance-and-motion bank. Detection is then the same, and association falls from 38.3 AssA to 21.6 and 24.3, with 3,079 and 2,408 identity switches against 1,950. Fast dance motion breaks frame-to-frame geometry and identical costumes defeat appearance; the generated colour stays put. Without continuation training (cell C) the colours are no better than Kalman/IoU on the same boxes.</p>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Cell</th><th>Checkpoint</th><th>Generation</th><th class="n">HOTA</th><th class="n">DetA</th><th class="n">AssA</th><th class="n">IDF1</th><th class="n">AssA, same boxes: Kalman/IoU</th><th class="n">DINOv3 bank</th></tr></thead>
+      <tbody>
+        <tr class="strong"><td>A (ours)</td><td>continuation-trained</td><td>chain</td><td class="n">34.8</td><td class="n">32.3</td><td class="n">38.3</td><td class="n">38.3</td><td class="n">21.6</td><td class="n">24.3</td></tr>
+        <tr><td>C</td><td>translation-only</td><td>chain</td><td class="n">16.8</td><td class="n">28.7</td><td class="n">10.1</td><td class="n">15.5</td><td class="n">10.4</td><td class="n">12.6</td></tr>
+        <tr><td>D</td><td>continuation-trained</td><td>independent</td><td class="n">15.9</td><td class="n">17.4</td><td class="n">15.1</td><td class="n">15.7</td><td class="n">10.7</td><td class="n">11.2</td></tr>
+        <tr><td>B</td><td>translation-only</td><td>independent</td><td class="n">18.2</td><td class="n">19.7</td><td class="n">17.7</td><td class="n">17.3</td><td class="n">12.7</td><td class="n">14.3</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">DanceTrack validation, TrackEval, sampling seed 0. Validation was also the development set. Independent windows are linked by a pinned overlap-IoU associator, selected on the 5-person development video; part of their deficit is detection, because that associator merges crowded, identically dressed dancers. Read by raw colour instead, independent windows keep their detections, and at the same continuation-trained checkpoint the chain still leads by +19.8 HOTA in all 25 videos. In two further seeds the chain scores 37.1 and 37.8 HOTA, and its lead on identical boxes holds in every seed.</p>
+</section>
+
+<section id="test">
+  <h2>On the test server</h2>
+  <p>One frozen submission to the official DanceTrack server, with no test-side iteration, scores 40.3 HOTA. That is not state of the art: 2025–26 specialists reach 66–76. What no other entry shows is the profile. To our knowledge it is the only submission that runs neither a box detector nor an association or propagation module, and the only one whose association exceeds its detection.</p>
+  <figure class="wide fig narrow">
+    <img src="media/figs/fig_assa_deta.png" width="800" height="654" alt="Scatter of AssA against DetA on the DanceTrack test set. Every detector-based tracker lies below the diagonal AssA equals DetA; ours lies above it, at DetA 37.6 and AssA 44.1.">
+    <figcaption>DanceTrack test: every detector-based tracker sits below the AssA = DetA diagonal; ours (star) is the only point above it. Dashed curves are iso-HOTA.</figcaption>
+  </figure>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Method</th><th>Year</th><th>Detector</th><th class="n">HOTA</th><th class="n">DetA</th><th class="n">AssA</th><th class="n">IDF1</th></tr></thead>
+      <tbody>
+        <tr><td>ByteTrack</td><td>2022</td><td>separate</td><td class="n">47.7</td><td class="n">71.0</td><td class="n">32.1</td><td class="n">53.9</td></tr>
+        <tr><td>MOTR</td><td>2022</td><td>end-to-end</td><td class="n">54.2</td><td class="n">73.5</td><td class="n">40.2</td><td class="n">51.5</td></tr>
+        <tr><td>OC-SORT</td><td>2023</td><td>separate</td><td class="n">55.1</td><td class="n">80.3</td><td class="n">38.3</td><td class="n">54.6</td></tr>
+        <tr><td>Deep OC-SORT</td><td>2023</td><td>separate</td><td class="n">61.3</td><td class="n">82.2</td><td class="n">45.8</td><td class="n">61.5</td></tr>
+        <tr><td>MOTRv2<sup>+</sup></td><td>2023</td><td>separate + end-to-end</td><td class="n">69.9</td><td class="n">83.0</td><td class="n">59.0</td><td class="n">71.7</td></tr>
+        <tr><td>SAM2MOT</td><td>2026</td><td>separate + SAM 2</td><td class="n">75.8</td><td class="n">79.7</td><td class="n">72.2</td><td class="n">83.9</td></tr>
+        <tr class="strong"><td>Ours (generation only)</td><td>2026</td><td>none</td><td class="n">40.3</td><td class="n">37.6</td><td class="n">44.1</td><td class="n">45.2</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">A selection of the paper's Table 1, which lists 21 trackers with their sources. <sup>+</sup>Uses CrowdHuman for its proposal detector. AssA is computed over matched detections only, so a tracker that finds the easy people and keeps them whole scores high AssA at low DetA. Our recall is low and lowest in crowds; the like-for-like comparison of association is the one on identical boxes above.</p>
+</section>
+
+<section id="reacq">
+  <h2>Keeping a hidden person's colour</h2>
+  <p>The hardest identity problem is a person who disappears, behind someone else or out of frame, and comes back. We mined every ground-truth gap of at least 9 frames in the 25 validation videos: 383 events, 360 occlusions and 23 exits. Of the 205 events the chain tracked on both sides of the gap, it gave 86 (42 %) back their own colour, 22 % of all 383 events. A Kalman/IoU tracker and the appearance bank, run on the same boxes and events, managed 47 and 50.</p>
+
+  <figure class="wide video">
+    <video id="reacq-video" controls muted loop playsinline preload="none" poster="media/reacq_0019.jpg" width="1284" height="360" aria-label="A dancer is hidden behind another for 27 frames and reappears with the same generated colour">
+      <source src="media/reacq_0019.mp4" type="video/mp4">
+    </video>
+    <figcaption id="reacq-cap">dancetrack0019, at half speed. The ring follows one dancer; it is dashed while the dancer is hidden (its position then is interpolated). The dancer's colour is painted through the gap and comes back with them. This is one of the paper's qualitative examples, a success; 119 of the 205 events are failures. Input video: DanceTrack (<a href="#refs">Sun et al., 2022</a>).</figcaption>
+  </figure>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Gap length (frames)</th><th class="n">9–24</th><th class="n">25–48</th><th class="n">49–150</th><th class="n">All</th></tr></thead>
+      <tbody>
+        <tr class="strong"><td>Chain (ours)</td><td class="n">60/127</td><td class="n">19/50</td><td class="n">7/26</td><td class="n">86/205 (42 %)</td></tr>
+        <tr><td>Kalman/IoU on the same boxes</td><td class="n">33/127</td><td class="n">12/50</td><td class="n">2/26</td><td class="n">47/205 (23 %)</td></tr>
+        <tr><td>Appearance + motion bank on the same boxes</td><td class="n">39/127</td><td class="n">10/50</td><td class="n">1/26</td><td class="n">50/205 (24 %)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Events tracked before and re-detected after the gap, on the boxes TrackEval scores. "All" includes the 2 events longer than 150 frames, which no system re-acquired.</p>
+  <p>The window is 49 frames long, yet gaps longer than that still come back 7 times in 26. The colour is carried through the gap: in all 86 recoveries of the reported seed (and all but one in each of the other two seeds) the pre-gap colour appears in at least one hidden frame. But it is also painted in 110 of the 119 failures, so carry-over is necessary, not sufficient. What tends to separate the two is where the colour stays: in the median recovery it covers the whole gap and stays near the hidden person (median IoU 0.35 with their interpolated position), while in failures it covers less of the gap (0.90) and drifts away (0.19). An identity the model stops painting is lost.</p>
+</section>
+
+<section id="sportsmot">
+  <h2>A second benchmark</h2>
+  <p>To test the recipe rather than one model, we re-ran it end to end on SportsMOT (basketball, football and volleyball; validation only), re-tuning nothing. On the 45 validation videos the colours reach 26.9 HOTA, and the ordering on identical boxes repeats: AssA 28.2 for the colours against 20.7 for the appearance bank and 17.1 for Kalman/IoU. Long-gap re-acquisition does not carry over, for an instructive reason: 369 of the 374 gap events are players leaving the frame, and a person outside the frame cannot be kept alive in pixels.</p>
+</section>
+
+<section id="limits">
+  <h2>Limits</h2>
+  <ul class="plain">
+    <li><strong>Detection, above all in crowds.</strong> Test DetA is 37.6, against about 80 for specialists, and both detection and association fall as videos get more crowded. Most dancers in the crowded clips are narrower than one 32-pixel latent token, and neighbours get merged even on training clips. Whether resolution, capacity or optimisation is the cause is unresolved.</li>
+    <li><strong>Throughput.</strong> About 60 s per 49-frame window on one A100, about 0.4 frames per second end to end, against 20–30 for tracking-by-detection.</li>
+    <li><strong>Scope.</strong> Two domains, choreographed dance and team sports, the second on validation only; transfer to appearance-diverse pedestrian benchmarks such as MOT17 is untested. The palette bounds a video at 47 identities, and colour reuse is unguarded.</li>
+    <li><strong>Training versus inference.</strong> Continuation training hands the model ground-truth prefixes, while at inference it continues its own output. Decode, correct, re-encode narrows that gap but does not remove it.</li>
+    <li><strong>Seeds and selection.</strong> Main-table numbers use one sampling seed (two further seeds give 37.1 and 37.8 validation HOTA). Validation was also the development set; the test-server row is the only selection-free number.</li>
+  </ul>
+  <figure class="wide fig">
+    <img src="media/figs/fig_assa_density.png" width="1400" height="520" alt="Two scatter plots over the 25 validation videos: AssA and DetA both fall as the number of people in the video grows.">
+    <figcaption>Per validation video: association (left) and detection (right) against the number of people in the video.</figcaption>
+  </figure>
+</section>
+
+<section id="background">
+  <h2>How we got here</h2>
+  <p>The project started with image generators, and their failure is what pointed to video. Gemini's image model, used with no training and a memory canvas, kept colours from one frame to the next but lost people across long gaps. A LoRA-tuned Cosmos3-Nano became a good per-frame painter (validation mask IoU 0.585), but three ways of making it carry identity between frames, through the previous map, a text-slot bank and a cross-attention bank, did not bind identity. The diagnosis was a weak colour-binding signal in the generator's training loss, plus drift whenever the generator was chained on its own outputs. A video model, which attends to a whole window at once, was the next bet rather than a proven remedy, and continuation training turned out to be the piece that made chaining work. These trials are kept in <a href="https://github.com/Sonam525/Generator-as-the-tracker/tree/main/image_generators"><code>image_generators/</code></a> with their write-up.</p>
+</section>
+
+<section id="code">
+  <h2>Code and records</h2>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Folder</th><th>What is in it</th></tr></thead>
+      <tbody>
+        <tr><td><code>core/</code></td><td>The shared library (<code>gentrack</code> package and tests): ID-map codec and palette, MOT format, metrics, and the invariant tests (codec round trip first)</td></tr>
+        <tr><td><code>video_generator/</code></td><td>The paper's method: training pairs, LTX-2.3 fine-tuning, chained generation, evaluation, baselines, the test-server entry</td></tr>
+        <tr><td><code>datasets/</code></td><td>Download scripts for DanceTrack, SportsMOT and MOT17, SAM 3 silhouette labels, occlusion mining</td></tr>
+        <tr><td><code>experiments/</code></td><td>Job records: the parameters of the paper's runs</td></tr>
+        <tr><td><code>paper/</code></td><td>The ICLR and arXiv versions of the paper, the scripts that build every table and figure, and the run records they read</td></tr>
+        <tr><td><code>image_generators/</code></td><td>The earlier image-generator trials and their findings</td></tr>
+      </tbody>
+    </table>
+  </div>
+<pre><code>pip install -e ".[dev]"
+pytest -x                 # core/tests: the codec round-trip invariant runs first</code></pre>
+  <p>Training and generation run on Databricks with one 80 GB A100; <a href="https://github.com/Sonam525/Generator-as-the-tracker/blob/main/video_generator/README.md"><code>video_generator/README.md</code></a> gives the pipeline in order. The paper's experiments used about 224 A100-hours, not counting the earlier image-model pilots.</p>
+
+  <h3>Licences and data</h3>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Item</th><th>Terms</th></tr></thead>
+      <tbody>
+        <tr><td>Code in this repository</td><td><a href="https://github.com/Sonam525/Generator-as-the-tracker/blob/main/LICENSE">MIT</a></td></tr>
+        <tr><td><a href="https://huggingface.co/Sonam5/Generator-as-the-tracker">LoRA checkpoints</a> and generated ID-maps</td><td>Non-commercial research only, following the datasets they come from; the LoRA is a derivative of LTX-2.3 and also subject to the <a href="https://github.com/Lightricks/LTX-2/blob/main/LICENSE-2">LTX-2 Community License Agreement</a></td></tr>
+        <tr><td>LTX-2.3 base model</td><td>Lightricks' licence for LTX-2; see its model card</td></tr>
+        <tr><td>SAM 3 (silhouette labels)</td><td>SAM License</td></tr>
+        <tr><td>DanceTrack, SportsMOT</td><td>Their non-commercial research licences. The videos on this page show one full DanceTrack validation video (dancetrack0065) and a 107-frame excerpt of another (dancetrack0019) for reference, credited to the dataset's authors (<a href="#refs">Sun et al., 2022</a>); we do not redistribute the dataset. Get it from its authors.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="cite">
+  <h2>Citation</h2>
+  <p>If you use this work, please cite the paper.</p>
+<pre><code>@article{yang2026generator,
+  title   = {The generator is the tracker: Multi-object tracking by painting
+             persistent identity colours},
+  author  = {Yang, Haiyu and Hostens, Miel},
+  journal = {arXiv preprint arXiv:2607.17120},
+  year    = {2026},
+  doi     = {10.48550/arXiv.2607.17120}
+}</code></pre>
+  <p class="note">The numbers on this page follow the November 2026 revision of the paper (source in <a href="https://github.com/Sonam525/Generator-as-the-tracker/tree/main/paper"><code>paper/</code></a>, for both the ICLR version and arXiv v2); arXiv v1 (July 2026) predates it.</p>
+
+  <h3 id="refs">Data and models this work builds on</h3>
+  <ul class="plain">
+    <li>Peize Sun, Jinkun Cao, Yi Jiang, Zehuan Yuan, Song Bai, Kris Kitani, Ping Luo. <em>DanceTrack: Multi-object tracking in uniform appearance and diverse motion.</em> CVPR 2022. The source of every video frame on this page.</li>
+    <li>Yutao Cui, Chenkai Zeng, Xiaoyu Zhao, Yichun Yang, Gangshan Wu, Limin Wang. <em>SportsMOT: A large multi-object tracking dataset in multiple sports scenes.</em> ICCV 2023.</li>
+    <li>Yoav HaCohen et al. <em>LTX-2: Efficient joint audio-visual foundation model.</em> arXiv:2601.03233, 2026. The base video model.</li>
+    <li>Nicolas Carion et al. <em>SAM 3: Segment anything with concepts.</em> ICLR 2026. The silhouette training labels.</li>
+  </ul>
+<pre><code>@inproceedings{sun2022dancetrack,
+  title     = {{DanceTrack}: Multi-object tracking in uniform appearance and diverse motion},
+  author    = {Sun, Peize and Cao, Jinkun and Jiang, Yi and Yuan, Zehuan and Bai, Song and
+               Kitani, Kris and Luo, Ping},
+  booktitle = {IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  year      = {2022}
+}</code></pre>
+</section>
+
+</main>
+
+<footer>
+  Video frames: DanceTrack (Sun et al., CVPR 2022), shown for reference. Base model: LTX-2.3 (Lightricks). Silhouette labels: SAM 3 (Meta). Code: MIT.
+</footer>
+
+<script src="site.js?v=1"></script>
+</body>
+</html>

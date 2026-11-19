@@ -1,0 +1,32 @@
+# Nano Banana 2 (Gemini image API) — pinned parameters. Paid: ~$0.15/image.
+# Secret: scope `gentrack`, key `GEMINI_API_KEY` (Databricks secrets).
+# Prompts mirror models/nanobanana_api.py defaults — keep the two in sync.
+
+model: gemini-3.1-flash-image-preview   # NB2; non-preview gemini-3.1-flash-image is more stable
+price_per_image_usd: 0.15
+max_reference_images: 14
+
+retry:
+  max_retries: 5
+  base_delay: 1.0      # seconds; full-jitter exponential backoff
+  max_delay: 45.0
+  timeout: 120.0
+
+response_modalities: [IMAGE]   # UNVERIFIED against live API — confirm on first P-A smoke call
+
+# Spend gate (enforced by the runner, not the adapter): confirm with human above this.
+confirm_above_usd: 10.0
+
+prompts:
+  perceive: >
+    Produce a segmentation ID-map of this image. Paint every distinct person as a
+    single flat, solid colour on a pure black background. Use a clearly different
+    colour for each person. No gradients, no outlines, no text, no shading — flat
+    colour fills only.
+  edit: >
+    The reference images show the previous frame, its ID-map (each person a flat
+    colour on black), and optionally a memory panel of known people with their
+    colours. Produce the ID-map for the NEW (first) image. Keep each person's colour
+    EXACTLY as in the previous ID-map / memory panel. Give a newly appearing person a
+    new unused flat colour. Pure black background, flat colour fills only — no
+    gradients, outlines, text, or shading. Do not guess identities.

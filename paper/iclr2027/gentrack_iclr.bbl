@@ -1,0 +1,400 @@
+\begin{thebibliography}{47}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Bewley et~al.(2016)Bewley, Ge, Ott, Ramos, and
+  Upcroft]{bewley2016sort}
+Alex Bewley, Zongyuan Ge, Lionel Ott, Fabio Ramos, and Ben Upcroft.
+\newblock Simple online and realtime tracking.
+\newblock In \emph{IEEE International Conference on Image Processing (ICIP)},
+  2016.
+
+\bibitem[Cao et~al.(2023)Cao, Pang, Weng, Khirodkar, and Kitani]{cao2023ocsort}
+Jinkun Cao, Jiangmiao Pang, Xinshuo Weng, Rawal Khirodkar, and Kris Kitani.
+\newblock Observation-centric {SORT}: Rethinking {SORT} for robust multi-object
+  tracking.
+\newblock In \emph{IEEE/CVF Conference on Computer Vision and Pattern
+  Recognition (CVPR)}, 2023.
+
+\bibitem[Carion et~al.(2026)Carion, Gustafson, Hu, Debnath, Hu, Suris
+  Coll-Vinent, Ryali, Alwala, Khedr, Huang, Lei, Ma, Guo, Kalla, Marks, Greer,
+  Wang, Sun, R{\"a}dle, Afouras, Mavroudi, Xu, Wu, Zhou, Momeni, Hazra, Ding,
+  Vaze, Porcher, Li, Li, Kamath, Cheng, Doll{\'a}r, Ravi, Saenko, Zhang, and
+  Feichtenhofer]{carion2026sam3}
+Nicolas Carion, Laura Gustafson, Yuan-Ting Hu, Shoubhik Debnath, Ronghang Hu,
+  Didac Suris Coll-Vinent, Chaitanya Ryali, Kalyan~Vasudev Alwala, Haitham
+  Khedr, Andrew Huang, Jie Lei, Tengyu Ma, Baishan Guo, Arpit Kalla, Markus
+  Marks, Joseph Greer, Meng Wang, Peize Sun, Roman R{\"a}dle, Triantafyllos
+  Afouras, Effrosyni Mavroudi, Katherine Xu, Tsung-Han Wu, Yu~Zhou, Liliane
+  Momeni, Rishi Hazra, Shuangrui Ding, Sagar Vaze, Francois Porcher, Feng Li,
+  Siyuan Li, Aishwarya Kamath, Ho~Kei Cheng, Piotr Doll{\'a}r, Nikhila Ravi,
+  Kate Saenko, Pengchuan Zhang, and Christoph Feichtenhofer.
+\newblock {SAM} 3: Segment anything with concepts.
+\newblock In C.~Vondrick, B.~Hariharan, C.~Raffel, L.~Pinto, D.~Yang, and
+  A.~Faust (eds.), \emph{International Conference on Learning Representations
+  (ICLR)}, volume 2026, pp.\  138846--138923, 2026.
+\newblock URL
+  \url{https://proceedings.iclr.cc/paper_files/paper/2026/file/e0982cbc81401df3430ee1ff780dc7a2-Paper-Conference.pdf}.
+\newblock arXiv:2511.16719.
+
+\bibitem[Chen et~al.(2025)Chen, Guo, Zhu, Zhang, Huang, Feng, and
+  Kang]{chen2025videodepthanything}
+Sili Chen, Hengkai Guo, Shengnan Zhu, Feihu Zhang, Zilong Huang, Jiashi Feng,
+  and Bingyi Kang.
+\newblock Video depth anything: Consistent depth estimation for super-long
+  videos.
+\newblock In \emph{IEEE/CVF Conference on Computer Vision and Pattern
+  Recognition (CVPR)}, 2025.
+
+\bibitem[Chen et~al.(2023)Chen, Li, Saxena, Hinton, and
+  Fleet]{chen2023pix2seqd}
+Ting Chen, Lala Li, Saurabh Saxena, Geoffrey Hinton, and David~J. Fleet.
+\newblock A generalist framework for panoptic segmentation of images and
+  videos.
+\newblock In \emph{IEEE/CVF International Conference on Computer Vision
+  (ICCV)}, pp.\  909--919, 2023.
+
+\bibitem[Cui et~al.(2023)Cui, Zeng, Zhao, Yang, Wu, and Wang]{cui2023sportsmot}
+Yutao Cui, Chenkai Zeng, Xiaoyu Zhao, Yichun Yang, Gangshan Wu, and Limin Wang.
+\newblock {SportsMOT}: A large multi-object tracking dataset in multiple sports
+  scenes.
+\newblock In \emph{IEEE/CVF International Conference on Computer Vision
+  (ICCV)}, 2023.
+
+\bibitem[Gabeur et~al.(2026)Gabeur, Long, Peng, Voigtlaender, Sun, Bao, Truong,
+  Wang, Zhou, Barron, Genova, Kannen, Ben, Li, Guo, Yogin, Gu, Chen, Wang, Xie,
+  Zhou, He, Funkhouser, Alayrac, and Soricut]{gabeur2026imagegen}
+Valentin Gabeur, Shangbang Long, Songyou Peng, Paul Voigtlaender, Shuyang Sun,
+  Yanan Bao, Karen Truong, Zhicheng Wang, Wenlei Zhou, Jonathan~T. Barron, Kyle
+  Genova, Nithish Kannen, Sherry Ben, Yandong Li, Mandy Guo, Suhas Yogin,
+  Yiming Gu, Huizhong Chen, Oliver Wang, Saining Xie, Howard Zhou, Kaiming He,
+  Thomas Funkhouser, Jean-Baptiste Alayrac, and Radu Soricut.
+\newblock Image generators are generalist vision learners.
+\newblock \emph{arXiv preprint arXiv:2604.20329}, 2026.
+
+\bibitem[Gao \& Wang(2023)Gao and Wang]{gao2023memotr}
+Ruopeng Gao and Limin Wang.
+\newblock {MeMOTR}: Long-term memory-augmented transformer for multi-object
+  tracking.
+\newblock In \emph{IEEE/CVF International Conference on Computer Vision
+  (ICCV)}, 2023.
+
+\bibitem[Gao et~al.(2025)Gao, Qi, and Wang]{gao2025motip}
+Ruopeng Gao, Ji~Qi, and Limin Wang.
+\newblock Multiple object tracking as {ID} prediction.
+\newblock In \emph{IEEE/CVF Conference on Computer Vision and Pattern
+  Recognition (CVPR)}, pp.\  27883--27893, 2025.
+\newblock arXiv:2403.16848.
+
+\bibitem[HaCohen et~al.(2024)HaCohen, Chiprut, Brazowski, Shalem, Moshe,
+  Richardson, Levin, Shiran, Zabari, Gordon, Panet, Weissbuch, Kulikov,
+  Bitterman, Melumian, and Bibi]{hacohen2024ltxvideo}
+Yoav HaCohen, Nisan Chiprut, Benny Brazowski, Daniel Shalem, Dudu Moshe, Eitan
+  Richardson, Eran Levin, Guy Shiran, Nir Zabari, Ori Gordon, Poriya Panet,
+  Sapir Weissbuch, Victor Kulikov, Yaki Bitterman, Zeev Melumian, and Ofir
+  Bibi.
+\newblock {LTX-Video}: Realtime video latent diffusion.
+\newblock \emph{arXiv preprint arXiv:2501.00103}, 2024.
+
+\bibitem[HaCohen et~al.(2026)HaCohen, Brazowski, Chiprut, Bitterman, Kvochko,
+  Berkowitz, Shalem, Lifschitz, Moshe, Porat, Richardson, Shiran, Chachy,
+  Chetboun, Finkelson, Kupchick, Zabari, Guetta, Kotler, Bibi, Gordon, Panet,
+  Benita, Armon, Kulikov, Inger, Shiftan, Melumian, and
+  Farbman]{hacohen2026ltx2}
+Yoav HaCohen, Benny Brazowski, Nisan Chiprut, Yaki Bitterman, Andrew Kvochko,
+  Avishai Berkowitz, Daniel Shalem, Daphna Lifschitz, Dudu Moshe, Eitan Porat,
+  Eitan Richardson, Guy Shiran, Itay Chachy, Jonathan Chetboun, Michael
+  Finkelson, Michael Kupchick, Nir Zabari, Nitzan Guetta, Noa Kotler, Ofir
+  Bibi, Ori Gordon, Poriya Panet, Roi Benita, Shahar Armon, Victor Kulikov,
+  Yaron Inger, Yonatan Shiftan, Zeev Melumian, and Zeev Farbman.
+\newblock {LTX-2}: Efficient joint audio-visual foundation model.
+\newblock \emph{arXiv preprint arXiv:2601.03233}, 2026.
+\newblock LTX-2.3 weights, trainer and IC-LoRA:
+  \url{https://github.com/Lightricks/LTX-2}.
+
+\bibitem[Ho et~al.(2022)Ho, Salimans, Gritsenko, Chan, Norouzi, and
+  Fleet]{ho2022video}
+Jonathan Ho, Tim Salimans, Alexey Gritsenko, William Chan, Mohammad Norouzi,
+  and David~J Fleet.
+\newblock Video diffusion models.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, 2022.
+
+\bibitem[Hu et~al.(2022)Hu, Shen, Wallis, Allen-Zhu, Li, Wang, and
+  Chen]{hu2021lora}
+Edward~J Hu, Yelong Shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li, Shean
+  Wang, and Weizhu Chen.
+\newblock {LoRA}: Low-rank adaptation of large language models.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2022.
+
+\bibitem[Hu et~al.(2025)Hu, Gao, Li, Zhao, Cun, Zhang, Quan, and
+  Shan]{hu2025depthcrafter}
+Wenbo Hu, Xiangjun Gao, Xiaoyu Li, Sijie Zhao, Xiaodong Cun, Yong Zhang, Long
+  Quan, and Ying Shan.
+\newblock {DepthCrafter}: Generating consistent long depth sequences for
+  open-world videos.
+\newblock In \emph{IEEE/CVF Conference on Computer Vision and Pattern
+  Recognition (CVPR)}, pp.\  2005--2015, 2025.
+
+\bibitem[Huang et~al.(2024)Huang, Wang, Wu, Shi, Dou, Liang, Feng, Liu, and
+  Zhou]{huang2024iclora}
+Lianghua Huang, Wei Wang, Zhi-Fan Wu, Yupeng Shi, Huanzhang Dou, Chen Liang,
+  Yutong Feng, Yu~Liu, and Jingren Zhou.
+\newblock In-context {LoRA} for diffusion transformers.
+\newblock \emph{arXiv preprint arXiv:2410.23775}, 2024.
+
+\bibitem[Jiang et~al.(2026)Jiang, Wang, Zhao, Li, and Jiang]{jiang2026sam2mot}
+Junjie Jiang, Zelin Wang, Manqi Zhao, Yin Li, and Dongsheng Jiang.
+\newblock {SAM2MOT}: A novel paradigm of multi-object tracking by segmentation.
+\newblock In \emph{Proceedings of the AAAI Conference on Artificial
+  Intelligence}, volume~40, pp.\  5388--5396, 2026.
+\newblock \doi{10.1609/aaai.v40i7.37455}.
+\newblock arXiv:2504.04519.
+
+\bibitem[Ke et~al.(2024)Ke, Obukhov, Huang, Metzger, Caye~Daudt, and
+  Schindler]{ke2024marigold}
+Bingxin Ke, Anton Obukhov, Shengyu Huang, Nando Metzger, Rodrigo Caye~Daudt,
+  and Konrad Schindler.
+\newblock Repurposing diffusion-based image generators for monocular depth
+  estimation.
+\newblock In \emph{IEEE/CVF Conference on Computer Vision and Pattern
+  Recognition (CVPR)}, pp.\  9492--9502, 2024.
+\newblock arXiv:2312.02145.
+
+\bibitem[Li et~al.(2025)Li, Chen, Liu, Gao, Hong, Zhou, Yao, Yeung, Lu, and
+  Jia]{li2025trackdiffusion}
+Pengxiang Li, Kai Chen, Zhili Liu, Ruiyuan Gao, Lanqing Hong, Guo Zhou, Hua
+  Yao, Dit-Yan Yeung, Huchuan Lu, and Xu~Jia.
+\newblock {TrackDiffusion}: Tracklet-conditioned video generation via diffusion
+  models.
+\newblock In \emph{IEEE/CVF Winter Conference on Applications of Computer
+  Vision (WACV)}, 2025.
+
+\bibitem[Lipman et~al.(2023)Lipman, Chen, Ben-Hamu, Nickel, and
+  Le]{lipman2022flow}
+Yaron Lipman, Ricky T.~Q. Chen, Heli Ben-Hamu, Maximilian Nickel, and Matt Le.
+\newblock Flow matching for generative modeling.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2023.
+
+\bibitem[Luiten et~al.(2021)Luiten, O{\v{s}}ep, Dendorfer, Torr, Geiger,
+  Leal-Taix{\'e}, and Leibe]{luiten2021hota}
+Jonathon Luiten, Aljo{\v{s}}a O{\v{s}}ep, Patrick Dendorfer, Philip Torr,
+  Andreas Geiger, Laura Leal-Taix{\'e}, and Bastian Leibe.
+\newblock {HOTA}: A higher order metric for evaluating multi-object tracking.
+\newblock \emph{International Journal of Computer Vision}, 2021.
+
+\bibitem[Luo et~al.(2024)Luo, Song, Ma, Wei, Yang, and
+  Yang]{luo2024diffusiontrack}
+Run Luo, Zikai Song, Lintao Ma, Jinlin Wei, Wei Yang, and Min Yang.
+\newblock {DiffusionTrack}: Diffusion model for multi-object tracking.
+\newblock In \emph{Proceedings of the AAAI Conference on Artificial
+  Intelligence}, volume~38, pp.\  3991--3999, 2024.
+\newblock \doi{10.1609/aaai.v38i5.28192}.
+\newblock arXiv:2308.09905.
+
+\bibitem[Lv et~al.(2024)Lv, Huang, Zhang, Lin, Han, and Zeng]{lv2024diffmot}
+Weiyi Lv, Yuhang Huang, Ning Zhang, Ruei-Sung Lin, Mei Han, and Dan Zeng.
+\newblock {DiffMOT}: A real-time diffusion-based multiple object tracker with
+  non-linear prediction.
+\newblock In \emph{IEEE/CVF Conference on Computer Vision and Pattern
+  Recognition (CVPR)}, 2024.
+
+\bibitem[Maggiolino et~al.(2023)Maggiolino, Ahmad, Cao, and
+  Kitani]{maggiolino2023deepocsort}
+Gerard Maggiolino, Adnan Ahmad, Jinkun Cao, and Kris Kitani.
+\newblock Deep {OC-SORT}: Multi-pedestrian tracking by adaptive
+  re-identification.
+\newblock In \emph{IEEE International Conference on Image Processing (ICIP)},
+  2023.
+
+\bibitem[Nam et~al.(2025)Nam, Son, Chung, Kim, Jin, Hur, and
+  Kim]{nam2025difftrack}
+Jisu Nam, Soowon Son, Dahyun Chung, Jiyoung Kim, Siyoon Jin, Junhwa Hur, and
+  Seungryong Kim.
+\newblock Emergent temporal correspondences from video diffusion transformers.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, volume~38, 2025.
+
+\bibitem[Ravi et~al.(2025)Ravi, Gabeur, Hu, Hu, Ryali, Ma, Khedr, R{\"a}dle,
+  Rolland, Gustafson, Mintun, Pan, Alwala, Carion, Wu, Girshick, Doll{\'a}r,
+  and Feichtenhofer]{ravi2025sam2}
+Nikhila Ravi, Valentin Gabeur, Yuan-Ting Hu, Ronghang Hu, Chaitanya Ryali,
+  Tengyu Ma, Haitham Khedr, Roman R{\"a}dle, Chloe Rolland, Laura Gustafson,
+  Eric Mintun, Junting Pan, Kalyan~Vasudev Alwala, Nicolas Carion, Chao-Yuan
+  Wu, Ross Girshick, Piotr Doll{\'a}r, and Christoph Feichtenhofer.
+\newblock {SAM} 2: Segment anything in images and videos.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2025.
+\newblock URL \url{https://openreview.net/forum?id=Ha6RTeWMd0}.
+\newblock arXiv:2408.00714.
+
+\bibitem[Rombach et~al.(2022)Rombach, Blattmann, Lorenz, Esser, and
+  Ommer]{rombach2022ldm}
+Robin Rombach, Andreas Blattmann, Dominik Lorenz, Patrick Esser, and Bj{\"o}rn
+  Ommer.
+\newblock High-resolution image synthesis with latent diffusion models.
+\newblock In \emph{IEEE/CVF Conference on Computer Vision and Pattern
+  Recognition (CVPR)}, 2022.
+
+\bibitem[Segu et~al.(2025)Segu, Piccinelli, Li, Yang, Van~Gool, and
+  Schiele]{segu2025samba}
+Mattia Segu, Luigi Piccinelli, Siyuan Li, Yung-Hsu Yang, Luc Van~Gool, and
+  Bernt Schiele.
+\newblock {Samba}: Synchronized set-of-sequences modeling for multiple object
+  tracking.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2025.
+\newblock arXiv:2410.01806. Author order follows the ICLR listing; the arXiv
+  record lists Schiele before Van Gool.
+
+\bibitem[Shao et~al.(2026)Shao, Yang, Yu, Li, Guo, Yan, Wang, and
+  Sun]{shao2026fdta}
+Yuqing Shao, Yuchen Yang, Rui Yu, Weilong Li, Xu~Guo, Huaicheng Yan, Wei Wang,
+  and Xiao Sun.
+\newblock From detection to association: Learning discriminative object
+  embeddings for multi-object tracking.
+\newblock In \emph{IEEE/CVF Conference on Computer Vision and Pattern
+  Recognition (CVPR)}, pp.\  6878--6888, 2026.
+\newblock arXiv:2512.02392.
+
+\bibitem[Shim et~al.(2025)Shim, Ko, Yang, and Kim]{shim2025tracktrack}
+Kyujin Shim, Kangwook Ko, Yujin Yang, and Changick Kim.
+\newblock Focusing on tracks for online multi-object tracking.
+\newblock In \emph{IEEE/CVF Conference on Computer Vision and Pattern
+  Recognition (CVPR)}, pp.\  11687--11696, 2025.
+
+\bibitem[Sun et~al.(2020)Sun, Cao, Jiang, Zhang, Xie, Yuan, Wang, and
+  Luo]{sun2020transtrack}
+Peize Sun, Jinkun Cao, Yi~Jiang, Rufeng Zhang, Enze Xie, Zehuan Yuan, Changhu
+  Wang, and Ping Luo.
+\newblock {TransTrack}: Multiple object tracking with transformer.
+\newblock \emph{arXiv preprint arXiv:2012.15460}, 2020.
+
+\bibitem[Sun et~al.(2022)Sun, Cao, Jiang, Yuan, Bai, Kitani, and
+  Luo]{sun2022dancetrack}
+Peize Sun, Jinkun Cao, Yi~Jiang, Zehuan Yuan, Song Bai, Kris Kitani, and Ping
+  Luo.
+\newblock {DanceTrack}: Multi-object tracking in uniform appearance and diverse
+  motion.
+\newblock In \emph{IEEE/CVF Conference on Computer Vision and Pattern
+  Recognition (CVPR)}, 2022.
+
+\bibitem[Tang et~al.(2023)Tang, Jia, Wang, Phoo, and Hariharan]{tang2023dift}
+Luming Tang, Menglin Jia, Qianqian Wang, Cheng~Perng Phoo, and Bharath
+  Hariharan.
+\newblock Emergent correspondence from image diffusion.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, volume~36, 2023.
+
+\bibitem[Vondrick et~al.(2018)Vondrick, Shrivastava, Fathi, Guadarrama, and
+  Murphy]{vondrick2018colorize}
+Carl Vondrick, Abhinav Shrivastava, Alireza Fathi, Sergio Guadarrama, and Kevin
+  Murphy.
+\newblock Tracking emerges by colorizing videos.
+\newblock In \emph{European Conference on Computer Vision (ECCV)}, pp.\
+  402--419, 2018.
+
+\bibitem[Wang et~al.(2025)Wang, Wang, Cao, Chen, and Li]{wang2025lamotr}
+Peng Wang, Yongcai Wang, Hualong Cao, Wang Chen, and Deying Li.
+\newblock {LA-MOTR}: End-to-end multi-object tracking by learnable association.
+\newblock In \emph{Proceedings of the {IEEE/CVF} International Conference on
+  Computer Vision ({ICCV})}, pp.\  12438--12448, 2025.
+
+\bibitem[Wang et~al.(2023{\natexlab{a}})Wang, Wang, Cao, Shen, and
+  Huang]{wang2023painter}
+Xinlong Wang, Wen Wang, Yue Cao, Chunhua Shen, and Tiejun Huang.
+\newblock Images speak in images: A generalist painter for in-context visual
+  learning.
+\newblock In \emph{IEEE/CVF Conference on Computer Vision and Pattern
+  Recognition (CVPR)}, 2023{\natexlab{a}}.
+
+\bibitem[Wang et~al.(2023{\natexlab{b}})Wang, Zhang, Cao, Wang, Shen, and
+  Huang]{wang2023seggpt}
+Xinlong Wang, Xiaosong Zhang, Yue Cao, Wen Wang, Chunhua Shen, and Tiejun
+  Huang.
+\newblock {SegGPT}: Towards segmenting everything in context.
+\newblock In \emph{IEEE/CVF International Conference on Computer Vision
+  (ICCV)}, pp.\  1130--1140, 2023{\natexlab{b}}.
+
+\bibitem[Wojke et~al.(2017)Wojke, Bewley, and Paulus]{wojke2017deepsort}
+Nicolai Wojke, Alex Bewley, and Dietrich Paulus.
+\newblock Simple online and realtime tracking with a deep association metric.
+\newblock In \emph{IEEE International Conference on Image Processing (ICIP)},
+  2017.
+
+\bibitem[Wu et~al.(2021)Wu, Cao, Song, Wang, Yang, and Yuan]{wu2021trades}
+Jialian Wu, Jiale Cao, Liangchen Song, Yu~Wang, Ming Yang, and Junsong Yuan.
+\newblock Track to detect and segment: An online multi-object tracker.
+\newblock In \emph{IEEE/CVF Conference on Computer Vision and Pattern
+  Recognition (CVPR)}, pp.\  12352--12361, 2021.
+\newblock arXiv:2103.08808.
+
+\bibitem[Yan et~al.(2025)Yan, Luo, Zhong, Gan, and Ma]{yan2025comot}
+Feng Yan, Weixin Luo, Yujie Zhong, Yiyang Gan, and Lin Ma.
+\newblock {CO-MOT}: Boosting end-to-end transformer-based multi-object tracking
+  via coopetition label assignment and shadow sets.
+\newblock In \emph{International Conference on Learning Representations
+  ({ICLR})}, 2025.
+
+\bibitem[Yang et~al.(2026)Yang, Huang, Chen, Li, and Hwang]{yang2026samuraipp}
+Cheng-Yen Yang, Hsiang-Wei Huang, Kuang-Ming Chen, Kunjun Li, and Jenq-Neng
+  Hwang.
+\newblock Extending segment anything model 2 to multi-object tracking by
+  optimizing hierarchical trajectory memory.
+\newblock In \emph{IEEE/CVF Conference on Computer Vision and Pattern
+  Recognition (CVPR) Findings}, pp.\  8358--8367, 2026.
+
+\bibitem[Yu et~al.(2023)Yu, Wang, Li, Zhang, Zhang, and Tao]{yu2023motrv3}
+En~Yu, Tiancai Wang, Zhuoling Li, Yuang Zhang, Xiangyu Zhang, and Wenbing Tao.
+\newblock {MOTRv3}: Release-fetch supervision for end-to-end multi-object
+  tracking.
+\newblock \emph{arXiv preprint arXiv:2305.14298}, 2023.
+
+\bibitem[Zeng et~al.(2022)Zeng, Dong, Zhang, Wang, Zhang, and
+  Wei]{zeng2022motr}
+Fangao Zeng, Bin Dong, Yuang Zhang, Tiancai Wang, Xiangyu Zhang, and Yichen
+  Wei.
+\newblock {MOTR}: End-to-end multiple-object tracking with transformer.
+\newblock In \emph{European Conference on Computer Vision (ECCV)}, 2022.
+
+\bibitem[Zhang et~al.(2021)Zhang, Wang, Wang, Zeng, and Liu]{zhang2021fairmot}
+Yifu Zhang, Chunyu Wang, Xinggang Wang, Wenjun Zeng, and Wenyu Liu.
+\newblock {FairMOT}: On the fairness of detection and re-identification in
+  multiple object tracking.
+\newblock \emph{International Journal of Computer Vision}, 2021.
+
+\bibitem[Zhang et~al.(2022)Zhang, Sun, Jiang, Yu, Weng, Yuan, Luo, Liu, and
+  Wang]{zhang2022bytetrack}
+Yifu Zhang, Peize Sun, Yi~Jiang, Dongdong Yu, Fucheng Weng, Zehuan Yuan, Ping
+  Luo, Wenyu Liu, and Xinggang Wang.
+\newblock {ByteTrack}: Multi-object tracking by associating every detection
+  box.
+\newblock In \emph{European Conference on Computer Vision (ECCV)}, 2022.
+
+\bibitem[Zhang et~al.(2023)Zhang, Wang, and Zhang]{zhang2023motrv2}
+Yuang Zhang, Tiancai Wang, and Xiangyu Zhang.
+\newblock {MOTRv2}: Bootstrapping end-to-end multi-object tracking by
+  pretrained object detectors.
+\newblock In \emph{IEEE/CVF Conference on Computer Vision and Pattern
+  Recognition (CVPR)}, 2023.
+
+\bibitem[Zhou et~al.(2020)Zhou, Koltun, and
+  Kr{\"a}henb{\"u}hl]{zhou2020centertrack}
+Xingyi Zhou, Vladlen Koltun, and Philipp Kr{\"a}henb{\"u}hl.
+\newblock Tracking objects as points.
+\newblock In \emph{European Conference on Computer Vision (ECCV)}, 2020.
+
+\bibitem[Zhou et~al.(2022)Zhou, Yin, Koltun, and
+  Kr{\"a}henb{\"u}hl]{zhou2022gtr}
+Xingyi Zhou, Tianwei Yin, Vladlen Koltun, and Philipp Kr{\"a}henb{\"u}hl.
+\newblock Global tracking transformers.
+\newblock In \emph{IEEE/CVF Conference on Computer Vision and Pattern
+  Recognition (CVPR)}, pp.\  8761--8770, 2022.
+\newblock arXiv:2203.13250.
+
+\end{thebibliography}

@@ -1,0 +1,52 @@
+{
+ "ltx_seed1_chain/dancetrack0004": {
+  "multi_component_boxes": 1189,
+  "boxes": 4733,
+  "frames": 1203
+ },
+ "ltx_seed1_chain/dancetrack0065": {
+  "multi_component_boxes": 353,
+  "boxes": 3751,
+  "frames": 702
+ },
+ "ltx_seed1_chain/dancetrack0010": {
+  "multi_component_boxes": 979,
+  "boxes": 7153,
+  "frames": 1203
+ },
+ "ltx_seed1_chain/dancetrack0034": {
+  "multi_component_boxes": 4157,
+  "boxes": 8817,
+  "frames": 923
+ },
+ "ltx_seed1_chain/dancetrack0094": {
+  "multi_component_boxes": 2616,
+  "boxes": 7222,
+  "frames": 603
+ },
+ "ltx_seed2_chain/dancetrack0004": {
+  "multi_component_boxes": 1119,
+  "boxes": 4229,
+  "frames": 1203
+ },
+ "ltx_seed2_chain/dancetrack0065": {
+  "multi_component_boxes": 810,
+  "boxes": 3210,
+  "frames": 702
+ },
+ "ltx_seed2_chain/dancetrack0010": {
+  "multi_component_boxes": 1661,
+  "boxes": 7823,
+  "frames": 1203
+ },
+ "ltx_seed2_chain/dancetrack0034": {
+  "multi_component_boxes": 3864,
+  "boxes": 9319,
+  "frames": 923
+ },
+ "ltx_seed2_chain/dancetrack0094": {
+  "multi_component_boxes": 3042,
+  "boxes": 7052,
+  "frames": 603
+ }
+}

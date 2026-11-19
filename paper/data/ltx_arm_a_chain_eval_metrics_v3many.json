@@ -1,0 +1,243 @@
+{
+  "arm": "ltx_arm_a_chain",
+  "link_mode": "v3many",
+  "n_videos": 25,
+  "mean_idf1_05": 0.415,
+  "mean_idf1_03": 0.505,
+  "mean_mota_05": 0.136,
+  "total_idsw": 1685,
+  "per_video": {
+    "dancetrack0004": {
+      "frames": 1203,
+      "idf1_05": 0.384,
+      "idf1_03": 0.415,
+      "idsw": 33,
+      "mota_05": 0.004,
+      "gt_tracks": 4,
+      "pred_tracks": 137
+    },
+    "dancetrack0005": {
+      "frames": 1203,
+      "idf1_05": 0.655,
+      "idf1_03": 0.715,
+      "idsw": 41,
+      "mota_05": 0.634,
+      "gt_tracks": 4,
+      "pred_tracks": 134
+    },
+    "dancetrack0007": {
+      "frames": 1203,
+      "idf1_05": 0.402,
+      "idf1_03": 0.487,
+      "idsw": 49,
+      "mota_05": 0.266,
+      "gt_tracks": 8,
+      "pred_tracks": 141
+    },
+    "dancetrack0010": {
+      "frames": 1203,
+      "idf1_05": 0.643,
+      "idf1_03": 0.701,
+      "idsw": 22,
+      "mota_05": 0.49,
+      "gt_tracks": 6,
+      "pred_tracks": 84
+    },
+    "dancetrack0014": {
+      "frames": 1203,
+      "idf1_05": 0.234,
+      "idf1_03": 0.359,
+      "idsw": 197,
+      "mota_05": -0.047,
+      "gt_tracks": 12,
+      "pred_tracks": 193
+    },
+    "dancetrack0018": {
+      "frames": 503,
+      "idf1_05": 0.869,
+      "idf1_03": 0.877,
+      "idsw": 2,
+      "mota_05": 0.747,
+      "gt_tracks": 8,
+      "pred_tracks": 61
+    },
+    "dancetrack0019": {
+      "frames": 2402,
+      "idf1_05": 0.416,
+      "idf1_03": 0.473,
+      "idsw": 105,
+      "mota_05": 0.411,
+      "gt_tracks": 7,
+      "pred_tracks": 338
+    },
+    "dancetrack0025": {
+      "frames": 803,
+      "idf1_05": 0.405,
+      "idf1_03": 0.542,
+      "idsw": 21,
+      "mota_05": 0.076,
+      "gt_tracks": 9,
+      "pred_tracks": 53
+    },
+    "dancetrack0026": {
+      "frames": 302,
+      "idf1_05": 0.227,
+      "idf1_03": 0.3,
+      "idsw": 95,
+      "mota_05": -0.294,
+      "gt_tracks": 19,
+      "pred_tracks": 131
+    },
+    "dancetrack0030": {
+      "frames": 1263,
+      "idf1_05": 0.337,
+      "idf1_03": 0.566,
+      "idsw": 43,
+      "mota_05": -0.1,
+      "gt_tracks": 6,
+      "pred_tracks": 86
+    },
+    "dancetrack0034": {
+      "frames": 923,
+      "idf1_05": 0.347,
+      "idf1_03": 0.421,
+      "idsw": 91,
+      "mota_05": 0.005,
+      "gt_tracks": 14,
+      "pred_tracks": 254
+    },
+    "dancetrack0035": {
+      "frames": 703,
+      "idf1_05": 0.502,
+      "idf1_03": 0.609,
+      "idsw": 68,
+      "mota_05": 0.133,
+      "gt_tracks": 8,
+      "pred_tracks": 114
+    },
+    "dancetrack0041": {
+      "frames": 1003,
+      "idf1_05": 0.181,
+      "idf1_03": 0.25,
+      "idsw": 133,
+      "mota_05": -0.17,
+      "gt_tracks": 22,
+      "pred_tracks": 216
+    },
+    "dancetrack0043": {
+      "frames": 183,
+      "idf1_05": 0.401,
+      "idf1_03": 0.521,
+      "idsw": 20,
+      "mota_05": -0.002,
+      "gt_tracks": 14,
+      "pred_tracks": 72
+    },
+    "dancetrack0047": {
+      "frames": 1203,
+      "idf1_05": 0.307,
+      "idf1_03": 0.405,
+      "idsw": 71,
+      "mota_05": -0.039,
+      "gt_tracks": 8,
+      "pred_tracks": 175
+    },
+    "dancetrack0058": {
+      "frames": 1601,
+      "idf1_05": 0.513,
+      "idf1_03": 0.545,
+      "idsw": 37,
+      "mota_05": 0.374,
+      "gt_tracks": 7,
+      "pred_tracks": 173
+    },
+    "dancetrack0063": {
+      "frames": 1000,
+      "idf1_05": 0.413,
+      "idf1_03": 0.533,
+      "idsw": 47,
+      "mota_05": 0.068,
+      "gt_tracks": 8,
+      "pred_tracks": 252
+    },
+    "dancetrack0065": {
+      "frames": 702,
+      "idf1_05": 0.454,
+      "idf1_03": 0.586,
+      "idsw": 60,
+      "mota_05": 0.175,
+      "gt_tracks": 5,
+      "pred_tracks": 91
+    },
+    "dancetrack0073": {
+      "frames": 703,
+      "idf1_05": 0.379,
+      "idf1_03": 0.481,
+      "idsw": 65,
+      "mota_05": -0.001,
+      "gt_tracks": 14,
+      "pred_tracks": 203
+    },
+    "dancetrack0077": {
+      "frames": 1203,
+      "idf1_05": 0.482,
+      "idf1_03": 0.601,
+      "idsw": 28,
+      "mota_05": 0.106,
+      "gt_tracks": 9,
+      "pred_tracks": 83
+    },
+    "dancetrack0079": {
+      "frames": 1202,
+      "idf1_05": 0.311,
+      "idf1_03": 0.421,
+      "idsw": 88,
+      "mota_05": 0.041,
+      "gt_tracks": 18,
+      "pred_tracks": 129
+    },
+    "dancetrack0081": {
+      "frames": 984,
+      "idf1_05": 0.226,
+      "idf1_03": 0.323,
+      "idsw": 117,
+      "mota_05": -0.131,
+      "gt_tracks": 20,
+      "pred_tracks": 198
+    },
+    "dancetrack0090": {
+      "frames": 1004,
+      "idf1_05": 0.247,
+      "idf1_03": 0.349,
+      "idsw": 135,
+      "mota_05": -0.006,
+      "gt_tracks": 14,
+      "pred_tracks": 244
+    },
+    "dancetrack0094": {
+      "frames": 603,
+      "idf1_05": 0.244,
+      "idf1_03": 0.33,
+      "idsw": 108,
+      "mota_05": -0.109,
+      "gt_tracks": 25,
+      "pred_tracks": 158
+    },
+    "dancetrack0097": {
+      "frames": 1203,
+      "idf1_05": 0.79,
+      "idf1_03": 0.819,
+      "idsw": 9,
+      "mota_05": 0.763,
+      "gt_tracks": 4,
+      "pred_tracks": 110
+    }
+  },
+  "trackeval_HOTA": 34.68,
+  "trackeval_DetA": 32.45,
+  "trackeval_AssA": 37.96,
+  "trackeval_LocA": 77.21,
+  "trackeval_MOTA": 8.95,
+  "trackeval_IDF1": 37.68,
+  "trackeval_IDSW": 1795.0
+}

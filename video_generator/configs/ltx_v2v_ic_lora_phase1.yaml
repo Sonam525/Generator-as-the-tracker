@@ -1,0 +1,114 @@
+# LTX-2.3 v2v IC-LoRA — PHASE 1 sanity (RGB clip -> ID-map clip). Adapted from the official
+# ltx-trainer configs/v2v_ic_lora.yaml. Native positionally-aligned in-context conditioning =
+# the replacement for the abandoned hand-rolled cond_sanity (clean negative).
+#
+# Gate (Phase 1): does the IC-LoRA produce ALIGNED ID-maps (decoded IoU vs GT high, self>>cross)?
+# Small/fast: ~12 clip pairs, 500 steps. If it passes -> Phase 2 (full DanceTrack train split).
+#
+# Paths assume the native download (video_generator/download_ltx_native.py) and dataset render
+# (video_generator/ltx_make_dataset.py -> process_dataset.py) are done.
+
+model:
+  # dev base (standard for LoRA fine-tuning; distilled is itself distilled -> riskier to tune).
+  model_path: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/models/ltx2_native/model/ltx-2.3-22b-dev.safetensors"
+  text_encoder_path: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/models/ltx2_native/gemma"
+  training_mode: "lora"
+  load_checkpoint: null
+
+lora:
+  rank: 32
+  alpha: 32
+  dropout: 0.0
+  # VIDEO-only modules (confirmed by ltx_probe: attn1/attn2 + ff; audio branch excluded).
+  target_modules:
+    - "attn1.to_k"
+    - "attn1.to_q"
+    - "attn1.to_v"
+    - "attn1.to_out.0"
+    - "attn2.to_k"
+    - "attn2.to_q"
+    - "attn2.to_v"
+    - "attn2.to_out.0"
+    - "ff.net.0.proj"
+    - "ff.net.2"
+
+training_strategy:
+  name: "flexible"
+  video:
+    is_generated: true
+    latents_dir: "latents"
+    conditions:
+      - type: reference            # IC-LoRA: aligned reference (our RGB) concatenated, no noise,
+        latents_dir: "reference_latents"   # excluded from loss, aligned positional encodings.
+        probability: 1.0
+      - type: first_frame
+        probability: 0.2
+
+optimization:
+  learning_rate: 2e-4
+  steps: 500                      # FLAG Phase-1 short run; Phase 2 = 3000 (template default)
+  batch_size: 1
+  gradient_accumulation_steps: 1
+  max_grad_norm: 1.0
+  optimizer_type: "adamw"
+  scheduler_type: "linear"
+  scheduler_params: {}
+  enable_gradient_checkpointing: true
+
+acceleration:
+  mixed_precision_mode: "bf16"
+  quantization: null              # FLAG: if 22B dev + VAE + text-enc OOMs 80GB at train, set
+                                  # "fp8-cast" (README low-mem path) and re-run.
+  load_text_encoder_in_8bit: false
+  offload_optimizer_during_validation: true
+
+data:
+  preprocessed_data_root: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/ltx_ds/phase1/.precomputed"
+  num_dataloader_workers: 2
+
+validation:
+  samples:
+    - prompt: "segmentation ID map: paint each person a distinct flat colour on a black background"
+      conditions:
+        - type: reference
+          # a held-back-style RGB reference clip rendered by ltx_make_dataset (first window).
+          video: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/ltx_ds/phase1/rgb/dancetrack0008_000001_window.mkv"
+          downscale_factor: 1
+          temporal_scale_factor: 1
+          include_in_output: true
+  negative_prompt: "worst quality, inconsistent motion, blurry, jittery, distorted"
+  video_dims: [512, 512, 49]      # WxHxF; 512%32==0; 49 = 8*6+1; matches our window
+  frame_rate: 24.0
+  seed: 0
+  inference_steps: 30
+  interval: 250
+  guidance_scale: 4.0
+  stg_scale: 1.0
+  stg_blocks: [29]
+  stg_mode: "stg_v"
+  generate_audio: false
+  skip_initial_validation: true
+
+checkpoints:
+  interval: 250
+  keep_last_n: 3
+  precision: "bfloat16"
+
+flow_matching:
+  timestep_sampling_mode: "shifted_logit_normal"
+  timestep_sampling_params: {}
+
+hub:
+  push_to_hub: false
+  hub_model_id: null
+
+wandb:
+  enabled: false
+  project: "gentrack-ltx-p2c"
+  tags: ["ltx2", "ic-lora", "v2v", "phase1"]
+  log_validation_videos: true
+
+seed: 0
+# LOCAL disk: the trainer writes validation sample videos via PyAV muxing, which the UC-volume
+# FUSE mount rejects ([Errno 95]). ltx_train_phase1.py copies this to the volume after training.
+output_dir: "/local_disk0/ltx_out/v2v_ic_lora_phase1"

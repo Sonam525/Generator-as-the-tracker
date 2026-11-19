@@ -1,0 +1,36 @@
+{
+ "run_name": "sportsmot-sam3-labels-train",
+ "tasks": [
+  {
+   "task_key": "sam3",
+   "new_cluster": {
+    "spark_version": "17.3.x-gpu-ml-scala2.13",
+    "node_type_id": "Standard_NC24ads_A100_v4",
+    "driver_node_type_id": "Standard_NC24ads_A100_v4",
+    "num_workers": 0,
+    "spark_conf": {
+     "spark.databricks.cluster.profile": "singleNode",
+     "spark.master": "local[*]"
+    },
+    "custom_tags": {
+     "ResourceClass": "SingleNode"
+    },
+    "data_security_mode": "SINGLE_USER",
+    "single_user_name": "<user>",
+    "azure_attributes": {
+     "availability": "ON_DEMAND_AZURE",
+     "first_on_demand": 1,
+     "spot_bid_max_price": -1
+    },
+    "enable_elastic_disk": true
+   },
+   "notebook_task": {
+    "notebook_path": "/Users/<user>/Generative Tracker/scripts/sam3_pseudo_masks",
+    "base_parameters": {
+     "dataset": "sportsmot"
+    }
+   },
+   "timeout_seconds": 28800
+  }
+ ]
+}

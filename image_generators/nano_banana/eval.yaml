@@ -1,0 +1,18 @@
+# Evaluation parameters (pinned). decode thresholds + P-A sweep grid + TrackEval.
+
+decode:
+  min_area: 16            # speckle filter (pixels) for model output before metrics
+
+persistence:
+  iou_threshold: 0.5      # an identity is "correct" at a frame if IoU >= this
+
+pA:                       # P-A memory-canvas baseline sweep (GATE A)
+  chain_lengths: [30, 60, 100]
+  strides: [1, 2, 4, 8]
+  occlusion_gaps: [5, 10, 20]
+  with_decode_correct_reencode: [true, false]   # ablate the cleaning loop
+
+trackeval:                # filled when wiring P4
+  gt_folder: ""
+  trackers_folder: ""
+  benchmark: ""

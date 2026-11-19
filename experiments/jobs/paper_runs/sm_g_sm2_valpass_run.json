@@ -1,0 +1,41 @@
+{
+ "run_name": "g-sm2-valpass-control-then-zeroshot",
+ "tasks": [
+  {
+   "task_key": "valpass",
+   "new_cluster": {
+    "spark_version": "17.3.x-gpu-ml-scala2.13",
+    "node_type_id": "Standard_NC24ads_A100_v4",
+    "driver_node_type_id": "Standard_NC24ads_A100_v4",
+    "num_workers": 0,
+    "spark_conf": {
+     "spark.databricks.cluster.profile": "singleNode",
+     "spark.master": "local[*]"
+    },
+    "custom_tags": {
+     "ResourceClass": "SingleNode"
+    },
+    "data_security_mode": "SINGLE_USER",
+    "single_user_name": "<user>",
+    "azure_attributes": {
+     "availability": "ON_DEMAND_AZURE",
+     "first_on_demand": 1,
+     "spot_bid_max_price": -1
+    },
+    "enable_elastic_disk": true
+   },
+   "timeout_seconds": 14400,
+   "notebook_task": {
+    "notebook_path": "/Users/<user>/Generative Tracker/scripts/ltx_valpass_run",
+    "base_parameters": {
+     "phase_a_cfg": "/Workspace/Users/<user>/Generative Tracker/configs/ltx_v2v_ic_lora_sm_phase2.yaml",
+     "control_ckpt": "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/checkpoints/ltx_v2v_ic_lora_sm_phase2/checkpoints/lora_weights_step_00750.safetensors",
+     "control_name": "control_sm_phaseA_step750",
+     "primary_ckpt": "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/checkpoints/ltx_v2v_ic_lora_phase3/checkpoints/lora_weights_step_02500.safetensors",
+     "primary_name": "zeroshot_dt_phase3_step2500",
+     "out_name": "ltx_sm_g_sm2_valpass"
+    }
+   }
+  }
+ ]
+}

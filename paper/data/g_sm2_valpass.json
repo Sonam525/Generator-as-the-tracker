@@ -1,0 +1,168 @@
+{
+  "gate": "G-SM2",
+  "metric_sha256_16": "554f112e082c3cae",
+  "phase_a_config": "/Workspace/Users/hy625@cornell.edu/Generative Tracker/configs/ltx_v2v_ic_lora_sm_phase2.yaml",
+  "reference": {
+    "run": "SportsMOT phase A step 750",
+    "mean_fg_iou": 0.5547
+  },
+  "sampler": {
+    "video_dims": [
+      512,
+      512,
+      49
+    ],
+    "seed": 0,
+    "inference_steps": 20,
+    "guidance_scale": 4.0,
+    "stg_scale": 1.0,
+    "stg_blocks": [
+      29
+    ],
+    "stg_mode": "stg_v",
+    "frame_rate": 24.0,
+    "negative_prompt": "worst quality, inconsistent motion, blurry, jittery, distorted"
+  },
+  "gt_files": {
+    "v_00HRwkvvjtQ_c001_000001_window.mkv": {
+      "bytes": 51366,
+      "mtime": 1788801000
+    },
+    "v_00HRwkvvjtQ_c003_000001_window.mkv": {
+      "bytes": 47057,
+      "mtime": 1788801007
+    },
+    "v_00HRwkvvjtQ_c005_000001_window.mkv": {
+      "bytes": 44989,
+      "mtime": 1788801015
+    },
+    "v_2QhNRucNC7E_c017_000001_window.mkv": {
+      "bytes": 57093,
+      "mtime": 1788801030
+    },
+    "v_G-vNjfx1GGc_c004_000001_window.mkv": {
+      "bytes": 48891,
+      "mtime": 1788801037
+    },
+    "v_G-vNjfx1GGc_c008_000001_window.mkv": {
+      "bytes": 44803,
+      "mtime": 1788801042
+    },
+    "v_0kUtTtmLaJA_c004_000001_window.mkv": {
+      "bytes": 42898,
+      "mtime": 1788801020
+    },
+    "v_0kUtTtmLaJA_c005_000001_window.mkv": {
+      "bytes": 36736,
+      "mtime": 1788801025
+    }
+  },
+  "optimizer_steps": 0,
+  "arms": {
+    "control_sm_phaseA_step750": {
+      "lora_ckpt": "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/checkpoints/ltx_v2v_ic_lora_sm_phase2/checkpoints/lora_weights_step_00750.safetensors",
+      "mean_fg_iou": 0.5552,
+      "n_scored": 8,
+      "n_samples": 8,
+      "comparable": true,
+      "lora_b_abs_sum": 258759.165,
+      "per_sample": {
+        "step_000000_1_png": {
+          "iou": 0.5075,
+          "why": "ok",
+          "gt": "v_00HRwkvvjtQ_c001_000001_window.mkv"
+        },
+        "step_000000_2_png": {
+          "iou": 0.5268,
+          "why": "ok",
+          "gt": "v_00HRwkvvjtQ_c003_000001_window.mkv"
+        },
+        "step_000000_3_png": {
+          "iou": 0.5295,
+          "why": "ok",
+          "gt": "v_00HRwkvvjtQ_c005_000001_window.mkv"
+        },
+        "step_000000_4_png": {
+          "iou": 0.643,
+          "why": "ok",
+          "gt": "v_2QhNRucNC7E_c017_000001_window.mkv"
+        },
+        "step_000000_5_png": {
+          "iou": 0.5483,
+          "why": "ok",
+          "gt": "v_G-vNjfx1GGc_c004_000001_window.mkv"
+        },
+        "step_000000_6_png": {
+          "iou": 0.5533,
+          "why": "ok",
+          "gt": "v_G-vNjfx1GGc_c008_000001_window.mkv"
+        },
+        "step_000000_7_png": {
+          "iou": 0.6011,
+          "why": "ok",
+          "gt": "v_0kUtTtmLaJA_c004_000001_window.mkv"
+        },
+        "step_000000_8_png": {
+          "iou": 0.532,
+          "why": "ok",
+          "gt": "v_0kUtTtmLaJA_c005_000001_window.mkv"
+        }
+      }
+    },
+    "zeroshot_dt_phase3_step2500": {
+      "lora_ckpt": "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/checkpoints/ltx_v2v_ic_lora_phase3/checkpoints/lora_weights_step_02500.safetensors",
+      "mean_fg_iou": 0.4847,
+      "n_scored": 8,
+      "n_samples": 8,
+      "comparable": true,
+      "lora_b_abs_sum": 519209.977,
+      "per_sample": {
+        "step_000000_1_png": {
+          "iou": 0.4222,
+          "why": "ok",
+          "gt": "v_00HRwkvvjtQ_c001_000001_window.mkv"
+        },
+        "step_000000_2_png": {
+          "iou": 0.3873,
+          "why": "ok",
+          "gt": "v_00HRwkvvjtQ_c003_000001_window.mkv"
+        },
+        "step_000000_3_png": {
+          "iou": 0.4991,
+          "why": "ok",
+          "gt": "v_00HRwkvvjtQ_c005_000001_window.mkv"
+        },
+        "step_000000_4_png": {
+          "iou": 0.6085,
+          "why": "ok",
+          "gt": "v_2QhNRucNC7E_c017_000001_window.mkv"
+        },
+        "step_000000_5_png": {
+          "iou": 0.5525,
+          "why": "ok",
+          "gt": "v_G-vNjfx1GGc_c004_000001_window.mkv"
+        },
+        "step_000000_6_png": {
+          "iou": 0.5476,
+          "why": "ok",
+          "gt": "v_G-vNjfx1GGc_c008_000001_window.mkv"
+        },
+        "step_000000_7_png": {
+          "iou": 0.4765,
+          "why": "ok",
+          "gt": "v_0kUtTtmLaJA_c004_000001_window.mkv"
+        },
+        "step_000000_8_png": {
+          "iou": 0.3839,
+          "why": "ok",
+          "gt": "v_0kUtTtmLaJA_c005_000001_window.mkv"
+        }
+      }
+    }
+  },
+  "arm_order": [
+    "control_sm_phaseA_step750",
+    "zeroshot_dt_phase3_step2500"
+  ],
+  "verdict": "G-SM2 UNSCORED: control arm returned 0.5552 over 8/8, expected 0.5547 over 8/8"
+}

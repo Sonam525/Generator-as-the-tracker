@@ -1,0 +1,9 @@
+{"run_name":"rev-armA-v3many-samewindows",
+ "tasks":[{"task_key":"eval",
+   "new_cluster":{"spark_version":"17.3.x-cpu-ml-scala2.13","node_type_id":"Standard_D8ds_v5","num_workers":0,
+     "spark_conf":{"spark.databricks.cluster.profile":"singleNode","spark.master":"local[*, 4]"},
+     "custom_tags":{"ResourceClass":"SingleNode"},"data_security_mode":"SINGLE_USER","single_user_name":"<user>",
+     "azure_attributes":{"availability":"ON_DEMAND_AZURE","first_on_demand":1}},
+   "notebook_task":{"notebook_path":"/Users/<user>/Generative Tracker/scripts/ltx_arm_eval",
+     "base_parameters":{"arm_dir":"ltx_arm_a_chain","link_mode":"v3many","win_suffix":"_ov9","nproc":"8"}},
+   "timeout_seconds":14400}]}

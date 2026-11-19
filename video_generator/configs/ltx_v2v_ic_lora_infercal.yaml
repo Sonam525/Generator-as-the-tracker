@@ -1,0 +1,108 @@
+# Path-B calibration: generate 4 val windows with the step-1500 LoRA at FAST inference
+# (dev model, 10 steps, no STG, guidance 3) to measure per-window time + verify IoU holds.
+model:
+  model_path: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/models/ltx2_native/model/ltx-2.3-22b-dev.safetensors"
+  text_encoder_path: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/models/ltx2_native/gemma"
+  training_mode: "lora"
+  load_checkpoint: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/checkpoints/ltx_v2v_ic_lora_phase2/checkpoints/lora_weights_step_01500.safetensors"
+lora:
+  rank: 32
+  alpha: 32
+  dropout: 0.0
+  target_modules:
+    - "attn1.to_k"
+    - "attn1.to_q"
+    - "attn1.to_v"
+    - "attn1.to_out.0"
+    - "attn2.to_k"
+    - "attn2.to_q"
+    - "attn2.to_v"
+    - "attn2.to_out.0"
+    - "ff.net.0.proj"
+    - "ff.net.2"
+training_strategy:
+  name: "flexible"
+  video:
+    is_generated: true
+    latents_dir: "latents"
+    conditions:
+      - type: reference
+        latents_dir: "reference_latents"
+        probability: 1.0
+optimization:
+  learning_rate: 2e-4
+  steps: 1
+  batch_size: 1
+  gradient_accumulation_steps: 1
+  max_grad_norm: 1.0
+  optimizer_type: "adamw"
+  scheduler_type: "constant"
+  scheduler_params: {}
+  enable_gradient_checkpointing: true
+acceleration:
+  mixed_precision_mode: "bf16"
+  quantization: null
+  load_text_encoder_in_8bit: false
+  offload_optimizer_during_validation: true
+data:
+  preprocessed_data_root: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/ltx_ds/phase2_train/.precomputed"
+  num_dataloader_workers: 2
+validation:
+  samples:
+    - prompt: "segmentation ID map: paint each person a distinct flat colour on a black background"
+      conditions:
+        - type: reference
+          video: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/ltx_ds/phase2_val/rgb/dancetrack0065_000001_window.mkv"
+          downscale_factor: 1
+          temporal_scale_factor: 1
+          include_in_output: true
+    - prompt: "segmentation ID map: paint each person a distinct flat colour on a black background"
+      conditions:
+        - type: reference
+          video: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/ltx_ds/phase2_val/rgb/dancetrack0063_000001_window.mkv"
+          downscale_factor: 1
+          temporal_scale_factor: 1
+          include_in_output: true
+    - prompt: "segmentation ID map: paint each person a distinct flat colour on a black background"
+      conditions:
+        - type: reference
+          video: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/ltx_ds/phase2_val/rgb/dancetrack0004_000001_window.mkv"
+          downscale_factor: 1
+          temporal_scale_factor: 1
+          include_in_output: true
+    - prompt: "segmentation ID map: paint each person a distinct flat colour on a black background"
+      conditions:
+        - type: reference
+          video: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/ltx_ds/phase2_val/rgb/dancetrack0019_000001_window.mkv"
+          downscale_factor: 1
+          temporal_scale_factor: 1
+          include_in_output: true
+  negative_prompt: "worst quality, inconsistent motion, blurry, jittery, distorted"
+  video_dims: [512, 512, 49]
+  frame_rate: 24.0
+  seed: 0
+  inference_steps: 10
+  interval: 1
+  guidance_scale: 3.0
+  stg_scale: 0.0
+  stg_blocks: [29]
+  stg_mode: "stg_v"
+  generate_audio: false
+  skip_initial_validation: false
+checkpoints:
+  interval: 100000
+  keep_last_n: 1
+  precision: "bfloat16"
+flow_matching:
+  timestep_sampling_mode: "shifted_logit_normal"
+  timestep_sampling_params: {}
+hub:
+  push_to_hub: false
+  hub_model_id: null
+wandb:
+  enabled: false
+  project: "gentrack-ltx-p2c"
+  tags: ["ltx2","ic-lora","infercal"]
+  log_validation_videos: false
+seed: 0
+output_dir: "/local_disk0/ltx_out/infercal"

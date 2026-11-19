@@ -1,0 +1,40 @@
+# Dataset roots + ID-map construction parameters (pinned before any run; README.md working agreement).
+# Roots live on the mounted volume; nothing durable on the driver disk.
+
+volume_root: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker"
+
+datasets:
+  dancetrack:                         # primary
+    root: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/dancetrack"
+    # Protocol (P0+): carve an internal val from the 40 train videos (VIDEO-level) for
+    # model selection; the 25 official val = TEST (labels public). Official test (35)
+    # unused (no labels; rule 7). P-A/P0/P2 all report on the 25-clip test → directly
+    # comparable for Gate 2C. HF zips put train across train1/ + train2/.
+    train_dirs: [train1, train2]        # 40 train videos
+    internal_val:                       # 5 held-out train videos for checkpoint selection
+      [dancetrack0008, dancetrack0029, dancetrack0051, dancetrack0066, dancetrack0096]
+    test_dirs: [val]                    # 25 official val videos, used as TEST
+    # EVAL POLICY: iteration gates (GATE 0 .. P2/2C) validate on internal_val (5) only,
+    # for cheap GPU. Full 25-video TEST eval is reserved for P4 (final benchmark + the
+    # definitive A/B/C comparison).
+    occlusion_strategy: absence       # IDs persist; mine disappearance/reappearance gaps
+  mot17:                              # secondary (sanity)
+    root: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/MOT17"
+    splits: { train: train }          # train/val "half" protocol: TBD (flagged in datasets.py)
+    occlusion_strategy: low_visibility
+    # NOTE: MOT17 sequences exceed K-1 unique ids -> needs colour recycling (sign-off).
+
+palette:
+  K: 48   # raised from 32 (sign-off 2026-06-12): DanceTrack dense frames reach 40 people
+
+mask_source: filled_box               # filled_box | sam_pseudo (pseudo_masks.py later)
+
+idmap:
+  paint_order: visibility_asc         # low-vis painted first => most-visible on top
+
+occlusion_mining:
+  min_gap: 5
+  max_gap: 40
+  mot17_visibility_threshold: 0.5
+
+strides: [1, 2, 4, 8]                 # Stage-2 temporal-triple strides

@@ -1,0 +1,126 @@
+{
+ "probe": "density on training clips",
+ "lora_ckpt": "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/checkpoints/ltx_v2v_ic_lora_phase2/checkpoints/lora_weights_step_01500.safetensors",
+ "min_area": 150,
+ "rows": [
+  {
+   "clip": "dancetrack0096_000001_window.mkv",
+   "frames": 49,
+   "gt_mean": 37.41,
+   "gt_max": 39,
+   "painted_mean": 23.76,
+   "painted_max": 28,
+   "recall_iou50": 0.0857
+  },
+  {
+   "clip": "dancetrack0020_000295_window.mkv",
+   "frames": 49,
+   "gt_mean": 32.1,
+   "gt_max": 35,
+   "painted_mean": 18.96,
+   "painted_max": 22,
+   "recall_iou50": 0.17
+  },
+  {
+   "clip": "dancetrack0083_000001_window.mkv",
+   "frames": 49,
+   "gt_mean": 23.98,
+   "gt_max": 24,
+   "painted_mean": 19.51,
+   "painted_max": 23,
+   "recall_iou50": 0.302
+  },
+  {
+   "clip": "dancetrack0082_000001_window.mkv",
+   "frames": 49,
+   "gt_mean": 22.86,
+   "gt_max": 23,
+   "painted_mean": 15.71,
+   "painted_max": 18,
+   "recall_iou50": 0.1575
+  },
+  {
+   "clip": "dancetrack0096_000393_window.mkv",
+   "frames": 49,
+   "gt_mean": 16.0,
+   "gt_max": 16,
+   "painted_mean": 10.14,
+   "painted_max": 12,
+   "recall_iou50": 0.1977
+  },
+  {
+   "clip": "dancetrack0080_000638_window.mkv",
+   "frames": 49,
+   "gt_mean": 14.69,
+   "gt_max": 15,
+   "painted_mean": 12.88,
+   "painted_max": 15,
+   "recall_iou50": 0.3107
+  },
+  {
+   "clip": "dancetrack0086_000295_window.mkv",
+   "frames": 49,
+   "gt_mean": 15.0,
+   "gt_max": 15,
+   "painted_mean": 12.41,
+   "painted_max": 14,
+   "recall_iou50": 0.3537
+  },
+  {
+   "clip": "dancetrack0082_000442_window.mkv",
+   "frames": 49,
+   "gt_mean": 13.88,
+   "gt_max": 20,
+   "painted_mean": 8.51,
+   "painted_max": 11,
+   "recall_iou50": 0.2641
+  },
+  {
+   "clip": "dancetrack0001_000001_window.mkv",
+   "frames": 49,
+   "gt_mean": 6.0,
+   "gt_max": 6,
+   "painted_mean": 7.45,
+   "painted_max": 9,
+   "recall_iou50": 0.9422
+  },
+  {
+   "clip": "dancetrack0002_000001_window.mkv",
+   "frames": 49,
+   "gt_mean": 7.0,
+   "gt_max": 7,
+   "painted_mean": 8.94,
+   "painted_max": 10,
+   "recall_iou50": 0.516
+  },
+  {
+   "clip": "dancetrack0006_000001_window.mkv",
+   "frames": 49,
+   "gt_mean": 7.84,
+   "gt_max": 8,
+   "painted_mean": 9.49,
+   "painted_max": 11,
+   "recall_iou50": 0.4868
+  },
+  {
+   "clip": "dancetrack0008_000001_window.mkv",
+   "frames": 49,
+   "gt_mean": 7.0,
+   "gt_max": 7,
+   "painted_mean": 8.31,
+   "painted_max": 10,
+   "recall_iou50": 0.9038
+  }
+ ],
+ "optimizer_steps": 0,
+ "sampler": {
+  "seed": 0,
+  "inference_steps": 20,
+  "guidance_scale": 4.0,
+  "video_dims": [
+   512,
+   512,
+   49
+  ]
+ }
+}

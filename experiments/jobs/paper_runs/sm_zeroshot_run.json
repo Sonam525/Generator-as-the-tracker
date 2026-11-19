@@ -1,0 +1,83 @@
+{
+ "run_name": "sportsmot-zeroshot-dancetrack-ckpt-8vids",
+ "tasks": [
+  {
+   "task_key": "gen",
+   "new_cluster": {
+    "spark_version": "17.3.x-gpu-ml-scala2.13",
+    "node_type_id": "Standard_NC24ads_A100_v4",
+    "driver_node_type_id": "Standard_NC24ads_A100_v4",
+    "num_workers": 0,
+    "spark_conf": {
+     "spark.databricks.cluster.profile": "singleNode",
+     "spark.master": "local[*]"
+    },
+    "custom_tags": {
+     "ResourceClass": "SingleNode"
+    },
+    "data_security_mode": "SINGLE_USER",
+    "single_user_name": "<user>",
+    "azure_attributes": {
+     "availability": "ON_DEMAND_AZURE",
+     "first_on_demand": 1,
+     "spot_bid_max_price": -1
+    },
+    "enable_elastic_disk": true
+   },
+   "notebook_task": {
+    "notebook_path": "/Users/<user>/Generative Tracker/scripts/ltx_run_chain",
+    "base_parameters": {
+     "vids": "v_00HRwkvvjtQ_c001,v_00HRwkvvjtQ_c003,v_00HRwkvvjtQ_c005,v_2QhNRucNC7E_c017,v_G-vNjfx1GGc_c004,v_G-vNjfx1GGc_c008,v_0kUtTtmLaJA_c004,v_0kUtTtmLaJA_c005",
+     "mode": "chain",
+     "lora_ckpt": "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/checkpoints/ltx_v2v_ic_lora_phase3/checkpoints/lora_weights_step_02500.safetensors",
+     "out_name": "ltx_sm_zeroshot_chain",
+     "win_suffix": "_ov9",
+     "size": "512",
+     "seed": "0"
+    }
+   },
+   "timeout_seconds": 21600
+  },
+  {
+   "task_key": "eval",
+   "new_cluster": {
+    "spark_version": "17.3.x-gpu-ml-scala2.13",
+    "node_type_id": "Standard_NC4as_T4_v3",
+    "driver_node_type_id": "Standard_NC4as_T4_v3",
+    "num_workers": 0,
+    "spark_conf": {
+     "spark.databricks.cluster.profile": "singleNode",
+     "spark.master": "local[*]"
+    },
+    "custom_tags": {
+     "ResourceClass": "SingleNode"
+    },
+    "data_security_mode": "SINGLE_USER",
+    "single_user_name": "<user>",
+    "azure_attributes": {
+     "availability": "ON_DEMAND_AZURE",
+     "first_on_demand": 1,
+     "spot_bid_max_price": -1
+    },
+    "enable_elastic_disk": true
+   },
+   "notebook_task": {
+    "notebook_path": "/Users/<user>/Generative Tracker/scripts/ltx_assoc_baselines",
+    "base_parameters": {
+     "dataset": "sportsmot",
+     "arms": "ltx_sm_zeroshot_chain",
+     "trackers": "native,kalman_iou,bank_dino",
+     "nproc": "4",
+     "vids": "v_00HRwkvvjtQ_c001,v_00HRwkvvjtQ_c003,v_00HRwkvvjtQ_c005,v_2QhNRucNC7E_c017,v_G-vNjfx1GGc_c004,v_G-vNjfx1GGc_c008,v_0kUtTtmLaJA_c004,v_0kUtTtmLaJA_c005",
+     "out_name": "ltx_sm_zeroshot_eval"
+    }
+   },
+   "timeout_seconds": 7200,
+   "depends_on": [
+    {
+     "task_key": "gen"
+    }
+   ]
+  }
+ ]
+}

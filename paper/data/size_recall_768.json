@@ -1,0 +1,15 @@
+[
+  {
+    "vid": "dancetrack0094",
+    "frames": 603,
+    "gt_per_frame": 19.5,
+    "pred_per_frame": 13.1,
+    "merge_rate": 0.111,
+    "recall_small<40": null,
+    "n_small<40": 0,
+    "recall_mid40-80": 0.531,
+    "n_mid40-80": 49,
+    "recall_large>=80": 0.323,
+    "n_large>=80": 11700
+  }
+]

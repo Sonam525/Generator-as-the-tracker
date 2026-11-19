@@ -1,0 +1,76 @@
+# P2-C video-mode (Option C) v2v fine-tune: RGB clip -> aligned ID-map clip.
+# Backbone: Lightricks/LTX-2.3 (22B dev, bf16-trainable). Pinned; UNPINNED params flagged.
+#
+# COMPARABILITY CAVEAT (record it in the experiment log, like the K=32->48 sign-off): switching the
+# video backbone off Cosmos3-Nano breaks the "same-backbone A/B/C" design (README §7) — the
+# bank (P2-B, Cosmos image mode) and this arm are now cross-backbone. Evaluated through the
+# SAME frozen codec + metrics + clips, so "does video mode beat the no-state floor / the
+# re-id bank" stays a valid question; the absolute backbone differs.
+
+base_model: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/models/ltx2_3"
+out_dir: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/checkpoints/p2c_ltx"
+
+# --- LTX model constraints: frame count % 8 == 1; height & width % 32 == 0 ---
+window_frames: 49      # FLAG unpinned: clip length per window. 49 = ~2s@24fps and (49-1)%8==0.
+                       # Calibration must confirm 22B video LoRA at this length fits 1xA100 80GB
+                       # (22B bf16 ~44GB weights BEFORE video activations — VRAM is the top risk).
+resolution: 512        # FLAG unpinned: square (512%32==0), matches the existing square-distortion
+                       # convention (stage1_data._resize_frame). LTX-native 768x512 is the alt —
+                       # decide at calibration alongside VRAM.
+temporal_ratio: 8      # FLAG UNVERIFIED: VAE temporal compression factor (LTX-Video=8; LTX-2.3
+                       # unconfirmed). The probe MUST confirm this — a wrong value silently
+                       # corrupts clip<->latent packing.
+
+cond_mode: probe       # channel_concat | temporal_pack — DECIDED by video_generator/ablations/ltx_probe.py via the
+                       # self-IoU >> cross-IoU overfit (the LTX analog of cond_sanity for Cosmos).
+                       # "probe" = not yet decided; generate_clip raises until the winner is ported.
+disable_audio: true    # we emit only the ID-map video; LTX-2.3's audio branch is wasted VRAM.
+
+mask_source: sam_pseudo   # silhouette labels (the 41,796-frame SAM-3.1 pass) — the good targets.
+                          # filled_box kept for ablation.
+pseudo_root: "/Volumes/cornell_catalog/cornell_schema/blob_video/Generator is the tracker/pseudo_masks/dancetrack"
+
+clips:
+  hop: 49                 # FLAG: window step for training sampling (=window_frames => non-overlapping).
+                          # set < window_frames for sliding/overlapping training windows.
+  frame_stride: 1         # native fps within a window (temporal attention wants real motion;
+                          # strided variants are a later robustness add, like Stage-2 strides).
+  include_occlusion: true # oversample windows that CONTAIN a mined occlusion event so the gap sits
+                          # INSIDE the window — the core P2-C bet (sub-window re-acquisition).
+  occlusion_strategy: absence   # DanceTrack: disappear/reappear gaps from gt.txt.
+  min_gap: 5
+  max_gap: 40             # a gap only fits inside a window if (after-before+1) <= window cover;
+                          # 40 < 49 leaves margin. Longer gaps => cross-window (overlap cond / bank).
+
+inference:
+  overlap_frames: 9       # FLAG unpinned: cross-window chaining overlap (>= 1 latent frame =
+                          # temporal_ratio+1 pixel frames). The "window boundary = new occlusion"
+                          # handoff (README §7.3): each window re-conditioned on the previous
+                          # window's last frames + cleaned ID-maps.
+
+lora:
+  r: 16
+  alpha: 16
+  dropout: 0.0
+  targets: [to_q, to_k, to_v]   # CONFIRMED by ltx_probe: of the original guesses only QKV matched
+                          # LTX-2.3's Linear leaves. attn-out is to_out.0 (leaf "0") and FFN leaves
+                          # are proj/linear/linear_1/linear_2 — ambiguous by leaf-name, so QKV-only
+                          # for now; ltx_cond_sanity dumps full Linear paths to pin attn-out + FFN
+                          # targets for the real training run (80M trainable at QKV-only, fits).
+
+optim:
+  lr: 1.0e-4
+  steps: 3000             # FLAG unpinned
+  batch_size: 1
+  grad_accum: 4
+  warmup: 100
+  grad_checkpointing: true   # mandatory at 22B video (VRAM).
+
+# §8.4: without a preservation mix, Stage fine-tuning risks destroying the generative prior the
+# paradigm rides on. Default 0 for the first run (flagged); raise to ~0.1-0.2 (self-distillation
+# clips sampled from the frozen base) if the video prior degrades.
+preservation_mix: 0.0
+
+seed: 0
+save_every: 500
+log_every: 25

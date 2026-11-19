@@ -1,0 +1,122 @@
+{
+ "run_name": "rev-seed-variance-5vids-seeds1-2-v5",
+ "tasks": [
+  {
+   "task_key": "gen_seed1",
+   "new_cluster": {
+    "spark_version": "17.3.x-gpu-ml-scala2.13",
+    "node_type_id": "Standard_NC24ads_A100_v4",
+    "driver_node_type_id": "Standard_NC24ads_A100_v4",
+    "num_workers": 0,
+    "spark_conf": {
+     "spark.databricks.cluster.profile": "singleNode",
+     "spark.master": "local[*]"
+    },
+    "custom_tags": {
+     "ResourceClass": "SingleNode"
+    },
+    "data_security_mode": "SINGLE_USER",
+    "single_user_name": "<user>",
+    "azure_attributes": {
+     "availability": "ON_DEMAND_AZURE",
+     "first_on_demand": 1,
+     "spot_bid_max_price": -1
+    },
+    "enable_elastic_disk": true
+   },
+   "timeout_seconds": 21600,
+   "notebook_task": {
+    "notebook_path": "/Users/<user>/Generative Tracker/scripts/ltx_run_chain",
+    "base_parameters": {
+     "vids": "dancetrack0004,dancetrack0065,dancetrack0010,dancetrack0034,dancetrack0094",
+     "mode": "chain",
+     "lora_ckpt": "",
+     "out_name": "ltx_seed1_chain",
+     "win_suffix": "_ov9",
+     "size": "512",
+     "seed": "1"
+    }
+   }
+  },
+  {
+   "task_key": "gen_seed2",
+   "new_cluster": {
+    "spark_version": "17.3.x-gpu-ml-scala2.13",
+    "node_type_id": "Standard_NC24ads_A100_v4",
+    "driver_node_type_id": "Standard_NC24ads_A100_v4",
+    "num_workers": 0,
+    "spark_conf": {
+     "spark.databricks.cluster.profile": "singleNode",
+     "spark.master": "local[*]"
+    },
+    "custom_tags": {
+     "ResourceClass": "SingleNode"
+    },
+    "data_security_mode": "SINGLE_USER",
+    "single_user_name": "<user>",
+    "azure_attributes": {
+     "availability": "ON_DEMAND_AZURE",
+     "first_on_demand": 1,
+     "spot_bid_max_price": -1
+    },
+    "enable_elastic_disk": true
+   },
+   "timeout_seconds": 21600,
+   "notebook_task": {
+    "notebook_path": "/Users/<user>/Generative Tracker/scripts/ltx_run_chain",
+    "base_parameters": {
+     "vids": "dancetrack0004,dancetrack0065,dancetrack0010,dancetrack0034,dancetrack0094",
+     "mode": "chain",
+     "lora_ckpt": "",
+     "out_name": "ltx_seed2_chain",
+     "win_suffix": "_ov9",
+     "size": "512",
+     "seed": "2"
+    }
+   }
+  },
+  {
+   "task_key": "eval_seeds",
+   "new_cluster": {
+    "spark_version": "17.3.x-gpu-ml-scala2.13",
+    "node_type_id": "Standard_NC4as_T4_v3",
+    "driver_node_type_id": "Standard_NC4as_T4_v3",
+    "num_workers": 0,
+    "spark_conf": {
+     "spark.databricks.cluster.profile": "singleNode",
+     "spark.master": "local[*]"
+    },
+    "custom_tags": {
+     "ResourceClass": "SingleNode"
+    },
+    "data_security_mode": "SINGLE_USER",
+    "single_user_name": "<user>",
+    "azure_attributes": {
+     "availability": "ON_DEMAND_AZURE",
+     "first_on_demand": 1,
+     "spot_bid_max_price": -1
+    },
+    "enable_elastic_disk": true
+   },
+   "timeout_seconds": 7200,
+   "depends_on": [
+    {
+     "task_key": "gen_seed1"
+    },
+    {
+     "task_key": "gen_seed2"
+    }
+   ],
+   "notebook_task": {
+    "notebook_path": "/Users/<user>/Generative Tracker/scripts/ltx_assoc_baselines",
+    "base_parameters": {
+     "arms": "ltx_seed1_chain,ltx_seed2_chain",
+     "trackers": "native",
+     "nproc": "4",
+     "vids": "dancetrack0004,dancetrack0065,dancetrack0010,dancetrack0034,dancetrack0094",
+     "out_name": "ltx_seeds_eval"
+    }
+   }
+  }
+ ]
+}
